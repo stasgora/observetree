@@ -5,6 +5,10 @@ import java.util.function.UnaryOperator;
 
 /**
  * Notifies listeners when model value is set
+ *
+ * @author Stanisław Góra
+ * @see SettableProperty
+ * @see SettableObservable
  */
 public class SettableProperty<T> extends Observable implements Serializable {
 

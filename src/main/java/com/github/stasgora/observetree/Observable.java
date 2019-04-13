@@ -11,6 +11,10 @@ import java.util.TreeSet;
 /**
  * Holds a list of listeners which can be notified immediately or manually. Can be part of a tree structure.
  * Changes propagate up the hierarchy, listeners are called on all changed observables.
+ *
+ * @author Stanisław Góra
+ * @see SettableProperty
+ * @see SettableObservable
  */
 public abstract class Observable {
 

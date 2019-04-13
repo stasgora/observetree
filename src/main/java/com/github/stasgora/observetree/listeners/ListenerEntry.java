@@ -2,6 +2,12 @@ package com.github.stasgora.observetree.listeners;
 
 import java.util.Objects;
 
+/**
+ *
+ * @author Stanisław Góra
+ * @see ChangeListener
+ * @see ListenerPriority
+ */
 public class ListenerEntry implements Comparable<ListenerEntry> {
 
 	public ChangeListener listener;

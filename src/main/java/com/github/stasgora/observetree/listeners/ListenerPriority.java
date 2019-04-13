@@ -1,5 +1,10 @@
 package com.github.stasgora.observetree.listeners;
 
+/**
+ *
+ * @author Stanisław Góra
+ * @see ChangeListener
+ */
 public enum ListenerPriority {
 
 	VERY_HIGH(2),

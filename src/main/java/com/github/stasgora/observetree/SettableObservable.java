@@ -7,6 +7,10 @@ import java.util.Set;
 
 /**
  * Maintains a set of observable listeners and parents for settable property
+ *
+ * @author Stanisław Góra
+ * @see SettableProperty
+ * @see SettableObservable
  */
 public class SettableObservable<T extends Observable> extends SettableProperty<T> {
 
