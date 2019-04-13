@@ -7,7 +7,27 @@
 	<groupId>io.github.stasgora</groupId>
 	<artifactId>observetree</artifactId>
 	<version>1.0</version>
-	<packaging>jar</packaging>
+
+	<name>Observetree</name>
+	<description>Library providing observables arranged in tree structure with propagating events</description>
+	<url>https://github.com/stasgora/observetree</url>
+	<licenses>
+		<license>
+			<name>MIT License</name>
+			<url>http://www.opensource.org/licenses/mit-license.php</url>
+		</license>
+	</licenses>
+	<developers>
+		<developer>
+			<name>Stanisław Góra</name>
+			<email>stasgora@gmail.com</email>
+		</developer>
+	</developers>
+	<scm>
+		<connection>scm:git:git@github.com:stasgora/observetree.git</connection>
+		<developerConnection>scm:git:ssh://github.com:stasgora/observetree.git</developerConnection>
+		<url>https://github.com/stasgora/observetree/tree/master</url>
+	</scm>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
