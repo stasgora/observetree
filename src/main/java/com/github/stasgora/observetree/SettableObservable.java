@@ -8,6 +8,8 @@ import java.util.Set;
 /**
  * Maintains a set of observable listeners and parents for settable property
  *
+ * @param <T> the type of the actual observable data type. Must inherit from {@link Observable}
+ *
  * @author Stanisław Góra
  * @see SettableProperty
  * @see SettableObservable

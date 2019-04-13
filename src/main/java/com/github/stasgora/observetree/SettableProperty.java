@@ -6,6 +6,8 @@ import java.util.function.UnaryOperator;
 /**
  * Notifies listeners when model value is set
  *
+ * @param <T> the type of the actual observable data type
+ *
  * @author Stanisław Góra
  * @see SettableProperty
  * @see SettableObservable

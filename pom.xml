@@ -10,7 +10,7 @@
 
 	<name>Observetree</name>
 	<description>Library providing observables arranged in tree structure with propagating events</description>
-	<url>https://github.com/stasgora/observetree</url>
+	<url>https://stasgora.github.io/observetree/</url>
 	<licenses>
 		<license>
 			<name>MIT License</name>
