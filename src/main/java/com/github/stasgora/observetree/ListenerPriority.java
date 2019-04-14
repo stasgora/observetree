@@ -1,7 +1,7 @@
-package com.github.stasgora.observetree.listeners;
+package com.github.stasgora.observetree;
 
 /**
- * A convenience enum defining five levels of {@link ChangeListener} priority
+ * A utility enum defining five levels of {@link ChangeListener} priority
  *
  * @author Stanisław Góra
  * @see ChangeListener

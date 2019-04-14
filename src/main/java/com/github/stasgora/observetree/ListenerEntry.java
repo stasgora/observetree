@@ -1,14 +1,8 @@
-package com.github.stasgora.observetree.listeners;
+package com.github.stasgora.observetree;
 
 import java.util.Objects;
 
-/**
- *
- * @author Stanisław Góra
- * @see ChangeListener
- * @see ListenerPriority
- */
-public class ListenerEntry implements Comparable<ListenerEntry> {
+class ListenerEntry implements Comparable<ListenerEntry> {
 
 	public ChangeListener listener;
 	public int priority;

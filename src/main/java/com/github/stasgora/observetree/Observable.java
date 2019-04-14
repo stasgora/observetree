@@ -1,9 +1,5 @@
 package com.github.stasgora.observetree;
 
-import com.github.stasgora.observetree.listeners.ChangeListener;
-import com.github.stasgora.observetree.listeners.ListenerEntry;
-import com.github.stasgora.observetree.listeners.ListenerPriority;
-
 import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
