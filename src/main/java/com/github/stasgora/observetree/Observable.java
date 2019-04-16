@@ -5,12 +5,42 @@ import java.util.Set;
 import java.util.TreeSet;
 
 /**
- * Holds a list of listeners which can be notified immediately or manually. Can be part of a tree structure.
- * Changes propagate up the hierarchy, listeners are called on all changed observables.
+ * Base {@code Observable} class that holds a list of listeners and notifies them when it changes.
+ * Use one of the {@link #addListener(ChangeListener)} methods to register a listener.
+ *
+ * <p>To signal that the {@code Observable} has changed call {@link #onValueChanged()} from the extending class.
+ * When {@link #notifyManually} is {@code true} the changing entity should additionally call {@link #notifyListeners()} when it wants the callbacks to fire.
+ *
+ * <p>Use {@link #notifyManually} flag to configure whether {@link #notifyListeners()} should be called:
+ * <ul>
+ *     <li>automatically, immediately after a {@link #onValueChanged()} was called</li>
+ *     <li>manually (useful for complex multistage changes)</li>
+ * </ul>
+ *
+ * <p>{@code Observables} can create a tree structure.
+ * For creating the relations use {@link #addSubObservable(Observable)}<br>
+ * <b>Cycles are not supported.</b>
+ * <ul>
+ *     <li>Calling {@link #onValueChanged()} marks the {@code Observable} and all its ancestors as changed</li>
+ *     <li>
+ *          Calling {@link #notifyListeners()}:
+ *          <ul>
+ *              <li>resets the {@code Observable} changed flag</li>
+ *              <li>invokes the listeners of all descendant and ancestor {@code Observables} that are currently marked as changed</li>
+ *          </ul>
+ *          The listeners are called in order of their priority (globally) - first the listeners with the highest priority from all the {@code Observables} are called, etc.
+ *          The order at which the listeners with the same priority are called is undefined.
+ *     </li>
+ * </ul>
+ *
+ * <p><i>Example use:</i><br>
+ * With several child {@code Observables} grouped under a single parent, multiple independent modifications can be made to the children.
+ * Then the {@link #notifyListeners()} can be called only once on the parent object to notify all the listeners including the children's.
  *
  * @author Stanisław Góra
  * @see SettableProperty
  * @see SettableObservable
+ * @see ListenerPriority
  */
 public abstract class Observable {
 
