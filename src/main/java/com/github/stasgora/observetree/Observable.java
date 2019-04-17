@@ -9,7 +9,7 @@ import java.util.TreeSet;
  * Use one of the {@link #addListener(ChangeListener)} methods to register a listener.
  *
  * <p>To signal that the {@code Observable} has changed call {@link #onValueChanged()} from the extending class.
- * When {@link #notifyManually} is {@code true} the changing entity should additionally call {@link #notifyListeners()} when it wants the callbacks to fire.
+ * When {@link #notifyManually} is {@code true}, the changing entity should additionally call {@link #notifyListeners()} when it wants the callbacks to fire.
  *
  * <p>Use {@link #notifyManually} flag to configure whether {@link #notifyListeners()} should be called:
  * <ul>
@@ -28,7 +28,7 @@ import java.util.TreeSet;
  *              <li>resets the {@code Observable} changed flag</li>
  *              <li>invokes the listeners of all descendant and ancestor {@code Observables} that are currently marked as changed</li>
  *          </ul>
- *          The listeners are called in order of their priority (globally) - first the listeners with the highest priority from all the {@code Observables} are called, etc.
+ *          The listeners are called in order of their priority (globally) - first the listeners with the highest priority from all the {@code Observables} will be called, etc.
  *          The order at which the listeners with the same priority are called is undefined.
  *     </li>
  * </ul>
@@ -48,7 +48,6 @@ public abstract class Observable {
 	private transient boolean wasValueChanged = false;
 
 	private transient Set<ListenerEntry> listeners = new TreeSet<>();
-
 	private transient Set<Observable> parents = new HashSet<>();
 	private transient Set<Observable> children = new HashSet<>();
 
@@ -61,23 +60,17 @@ public abstract class Observable {
 	}
 
 	public void addListener(ChangeListener callback, int priority) {
-		listeners.add(new ListenerEntry(callback, priority));
+		if(listeners.stream().noneMatch(listener -> listener.listener == callback)) {
+			listeners.add(new ListenerEntry(callback, priority));
+		}
+	}
+
+	public void removeListener(ChangeListener callback) {
+		listeners.stream().filter(listener -> listener.listener == callback).findFirst().ifPresent(found -> listeners.remove(found));
 	}
 
 	protected void addParent(Observable observable) {
 		parents.add(observable);
-	}
-
-	protected void addChild(Observable observable) {
-		children.add(observable);
-	}
-
-	protected void removeParent(Observable observable) {
-		parents.remove(observable);
-	}
-
-	protected void removeChild(Observable observable) {
-		children.remove(observable);
 	}
 
 	protected void addSubObservable(Observable observable) {
@@ -92,13 +85,13 @@ public abstract class Observable {
 
 	protected void initSubObservable(Observable model) {
 		model.addParent(this);
-		addChild(model);
+		children.add(model);
 		model.setUnchanged();
 	}
 
 	protected void removeSubObservable(Observable model) {
-		model.removeParent(this);
-		removeChild(model);
+		model.parents.remove(this);
+		children.remove(model);
 	}
 
 	protected void onValueChanged() {
