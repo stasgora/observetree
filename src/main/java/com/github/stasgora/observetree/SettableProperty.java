@@ -15,7 +15,6 @@ import java.util.function.UnaryOperator;
 public class SettableProperty<T> extends Observable implements Serializable {
 
 	protected T modelValue;
-
 	protected T defaultValue;
 
 	private static final long serialVersionUID = 1L;

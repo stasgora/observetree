@@ -14,18 +14,14 @@ import java.util.Set;
  */
 public class SettableObservable<T extends Observable> extends SettableProperty<T> {
 
-	protected transient Set<ChangeListener> staticListeners = new HashSet<>();
-	protected transient Set<Observable> staticParents = new HashSet<>();
+	public ListenerSet staticListeners = new ListenerSet();
+	private transient Set<Observable> staticParents = new HashSet<>();
 
 	public SettableObservable() {
 	}
 
 	public SettableObservable(T modelValue) {
 		super(modelValue);
-	}
-
-	public void addStaticListener(ChangeListener callback) {
-		staticListeners.add(callback);
 	}
 
 	@Override
@@ -40,7 +36,7 @@ public class SettableObservable<T extends Observable> extends SettableProperty<T
 			return;
 		}
 		if(modelValue != null) {
-			staticListeners.forEach(modelValue::addListener);
+			staticListeners.forEach(listener -> modelValue.listeners.add(listener.listener, listener.priority));
 			staticParents.forEach(parent -> parent.addSubObservable(modelValue));
 		}
 		if(this.modelValue != null) {

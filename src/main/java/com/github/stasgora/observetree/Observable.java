@@ -6,7 +6,7 @@ import java.util.TreeSet;
 
 /**
  * Base {@code Observable} class that holds a list of listeners and notifies them when it changes.
- * Use one of the {@link #addListener(ChangeListener)} methods to register a listener.
+ * Use one of the {@link ListenerSet#add(ChangeListener)} methods to register a listener.
  *
  * <p>To signal that the {@code Observable} has changed call {@link #onValueChanged()} from the extending class.
  * When {@link #notifyManually} is {@code true}, the changing entity should additionally call {@link #notifyListeners()} when it wants the callbacks to fire.
@@ -47,27 +47,9 @@ public abstract class Observable {
 	public transient boolean notifyManually = true;
 	private transient boolean wasValueChanged = false;
 
-	private transient Set<ListenerEntry> listeners = new TreeSet<>();
+	public transient ListenerSet listeners = new ListenerSet();
 	private transient Set<Observable> parents = new HashSet<>();
 	private transient Set<Observable> children = new HashSet<>();
-
-	public void addListener(ChangeListener callback) {
-		addListener(callback, ListenerPriority.NORMAL);
-	}
-
-	public void addListener(ChangeListener callback, ListenerPriority priority) {
-		addListener(callback, priority.value);
-	}
-
-	public void addListener(ChangeListener callback, int priority) {
-		if(listeners.stream().noneMatch(listener -> listener.listener == callback)) {
-			listeners.add(new ListenerEntry(callback, priority));
-		}
-	}
-
-	public void removeListener(ChangeListener callback) {
-		listeners.stream().filter(listener -> listener.listener == callback).findFirst().ifPresent(found -> listeners.remove(found));
-	}
 
 	protected void addParent(Observable observable) {
 		parents.add(observable);
@@ -119,7 +101,7 @@ public abstract class Observable {
 	}
 
 	public void copyListeners(Observable observable) {
-		listeners.forEach(listener -> observable.addListener(listener.listener, listener.priority));
+		listeners.forEach(listener -> observable.listeners.add(listener.listener, listener.priority));
 	}
 
 	public void clearListeners() {
