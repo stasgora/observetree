@@ -9,6 +9,12 @@ package com.github.stasgora.observetree;
 
 import java.util.Objects;
 
+/**
+ * Internal data class holding listener reference together with its priority. Overrides standard methods that ensure proper aggregation in collections.
+ *
+ * @author Stanisław Góra
+ * @see ChangeListener
+ */
 class ListenerEntry implements Comparable<ListenerEntry> {
 
 	public ChangeListener listener;

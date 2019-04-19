@@ -10,6 +10,12 @@ package com.github.stasgora.observetree;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Abstract base class providing add and remove methods for {@link ChangeListener} and {@link Observable} parents and children
+ *
+ * @author Stanisław Góra
+ * @see Observable
+ */
 abstract class ListenerManager {
 
 	private transient Set<Observable> parents = new HashSet<>();
