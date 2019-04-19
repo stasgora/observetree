@@ -6,7 +6,7 @@ import java.util.TreeSet;
 
 /**
  * Base {@code Observable} class that holds a list of listeners and notifies them when it changes.
- * Use one of the {@link ListenerSet#add(ChangeListener)} methods to register a listener.
+ * Use one of the {@link #add(Set, ChangeListener)} methods to register a listener.
  *
  * <p>To signal that the {@code Observable} has changed call {@link #onValueChanged()} from the extending class.
  * When {@link #notifyManually} is {@code true}, the changing entity should additionally call {@link #notifyListeners()} when it wants the callbacks to fire.
@@ -42,17 +42,29 @@ import java.util.TreeSet;
  * @see SettableObservable
  * @see ListenerPriority
  */
-public abstract class Observable {
+public abstract class Observable extends ListenerManager {
 
 	public transient boolean notifyManually = true;
 	private transient boolean wasValueChanged = false;
 
-	public transient ListenerSet listeners = new ListenerSet();
+	private transient Set<ListenerEntry> listeners = new TreeSet<>();
 	private transient Set<Observable> parents = new HashSet<>();
 	private transient Set<Observable> children = new HashSet<>();
 
-	protected void addParent(Observable observable) {
-		parents.add(observable);
+	public void addListener(ChangeListener callback) {
+		add(listeners, callback);
+	}
+
+	public void addListener(ChangeListener callback, ListenerPriority priority) {
+		add(listeners, callback, priority);
+	}
+
+	public void addListener(ChangeListener callback, int priority) {
+		add(listeners, callback, priority);
+	}
+
+	public void removeListener(ChangeListener callback) {
+		remove(listeners, callback);
 	}
 
 	protected void addSubObservable(Observable observable) {
@@ -101,7 +113,7 @@ public abstract class Observable {
 	}
 
 	public void copyListeners(Observable observable) {
-		listeners.forEach(listener -> observable.listeners.add(listener.listener, listener.priority));
+		listeners.forEach(listener -> observable.add(listeners, listener.listener, listener.priority));
 	}
 
 	public void clearListeners() {

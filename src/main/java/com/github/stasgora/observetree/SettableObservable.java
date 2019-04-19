@@ -2,6 +2,7 @@ package com.github.stasgora.observetree;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Maintains a set of observable listeners and parents for settable property
@@ -14,7 +15,7 @@ import java.util.Set;
  */
 public class SettableObservable<T extends Observable> extends SettableProperty<T> {
 
-	public ListenerSet staticListeners = new ListenerSet();
+	private transient Set<ListenerEntry> staticListeners = new TreeSet<>();
 	private transient Set<Observable> staticParents = new HashSet<>();
 
 	public SettableObservable() {
@@ -22,6 +23,22 @@ public class SettableObservable<T extends Observable> extends SettableProperty<T
 
 	public SettableObservable(T modelValue) {
 		super(modelValue);
+	}
+
+	public void addStaticListener(ChangeListener callback) {
+		add(staticListeners, callback);
+	}
+
+	public void addStaticListener(ChangeListener callback, ListenerPriority priority) {
+		add(staticListeners, callback, priority);
+	}
+
+	public void addStaticListener(ChangeListener callback, int priority) {
+		add(staticListeners, callback, priority);
+	}
+
+	public void removeStaticListener(ChangeListener callback) {
+		remove(staticListeners, callback);
 	}
 
 	@Override
@@ -36,7 +53,7 @@ public class SettableObservable<T extends Observable> extends SettableProperty<T
 			return;
 		}
 		if(modelValue != null) {
-			staticListeners.forEach(listener -> modelValue.listeners.add(listener.listener, listener.priority));
+			staticListeners.forEach(listener -> modelValue.addListener(listener.listener, listener.priority));
 			staticParents.forEach(parent -> parent.addSubObservable(modelValue));
 		}
 		if(this.modelValue != null) {
