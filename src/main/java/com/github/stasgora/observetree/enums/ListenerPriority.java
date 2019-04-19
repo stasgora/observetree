@@ -5,7 +5,9 @@
  * See LICENSE file or go to http://www.opensource.org/licenses/mit-license.php for full license details.
  */
 
-package com.github.stasgora.observetree;
+package com.github.stasgora.observetree.enums;
+
+import com.github.stasgora.observetree.ChangeListener;
 
 /**
  * A utility enum defining five levels of {@link ChangeListener} priority

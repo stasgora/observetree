@@ -7,6 +7,8 @@
 
 package com.github.stasgora.observetree;
 
+import com.github.stasgora.observetree.enums.ListenerPriority;
+
 import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;

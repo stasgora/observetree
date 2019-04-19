@@ -7,6 +7,9 @@
 
 package com.github.stasgora.observetree;
 
+import com.github.stasgora.observetree.enums.ListenerNotification;
+import com.github.stasgora.observetree.enums.ListenerPriority;
+
 import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
@@ -16,12 +19,12 @@ import java.util.TreeSet;
  * Use one of the {@link #add(Set, ChangeListener)} methods to register a listener.
  *
  * <p>To signal that the {@code Observable} has changed call {@link #onValueChanged()} from the extending class.
- * When {@link #notifyManually} is {@code true}, the changing entity should additionally call {@link #notifyListeners()} when it wants the callbacks to fire.
+ * When {@link #notificationMethod} is {@code true}, the changing entity should additionally call {@link #notifyListeners()} when it wants the callbacks to fire.
  *
- * <p>Use {@link #notifyManually} flag to configure whether {@link #notifyListeners()} should be called:
+ * <p>Use {@link #notificationMethod} flag to configure whether {@link #notifyListeners()} should be called:
  * <ul>
  *     <li>automatically, immediately after a {@link #onValueChanged()} was called</li>
- *     <li>manually (useful for complex multistage changes)</li>
+ *     <li>manually, through {@link #notifyListeners()} (useful for complex multistage changes)</li>
  * </ul>
  *
  * <p>{@code Observables} can create a tree structure.
@@ -51,7 +54,10 @@ import java.util.TreeSet;
  */
 public abstract class Observable extends ListenerManager {
 
-	public transient boolean notifyManually = true;
+	/**
+	 * Listeners notification method
+	 */
+	public transient ListenerNotification notificationMethod = ListenerNotification.MANUAL;
 	private transient boolean wasValueChanged = false;
 
 	private transient Set<ListenerEntry> listeners = new TreeSet<>();
@@ -98,13 +104,13 @@ public abstract class Observable extends ListenerManager {
 	protected void onValueChanged() {
 		parents.forEach(Observable::onValueChanged);
 		wasValueChanged = true;
-		if (!notifyManually) {
+		if (notificationMethod == ListenerNotification.AUTOMATIC) {
 			listeners.forEach(entry -> entry.listener.call());
 		}
 	}
 
 	private void collectListeners(TreeTraverseDirection direction, Set<ListenerEntry> treeListeners) {
-		if(wasValueChanged && notifyManually) {
+		if(wasValueChanged && notificationMethod == ListenerNotification.MANUAL) {
 			wasValueChanged = false;
 			treeListeners.addAll(listeners);
 		}
