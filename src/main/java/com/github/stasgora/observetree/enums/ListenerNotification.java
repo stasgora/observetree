@@ -7,7 +7,7 @@
 
 package com.github.stasgora.observetree.enums;
 
-import com.github.stasgora.observetree.ChangeListener;
+import com.github.stasgora.observetree.listener.ChangeListener;
 import com.github.stasgora.observetree.Observable;
 
 /**

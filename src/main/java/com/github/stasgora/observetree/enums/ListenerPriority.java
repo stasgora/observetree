@@ -7,7 +7,7 @@
 
 package com.github.stasgora.observetree.enums;
 
-import com.github.stasgora.observetree.ChangeListener;
+import com.github.stasgora.observetree.listener.ChangeListener;
 
 /**
  * A utility enum defining five levels of {@link ChangeListener} priority

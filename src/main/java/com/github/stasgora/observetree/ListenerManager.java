@@ -8,6 +8,8 @@
 package com.github.stasgora.observetree;
 
 import com.github.stasgora.observetree.enums.ListenerPriority;
+import com.github.stasgora.observetree.listener.ChangeListener;
+import com.github.stasgora.observetree.listener.ListenerEntry;
 
 import java.util.HashSet;
 import java.util.Optional;
@@ -19,7 +21,7 @@ import java.util.Set;
  * @author Stanisław Góra
  * @see Observable
  */
-abstract class ListenerManager {
+public abstract class ListenerManager {
 
 	private transient Set<Observable> parents = new HashSet<>();
 	private transient Set<Observable> children = new HashSet<>();

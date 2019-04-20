@@ -9,6 +9,8 @@ package com.github.stasgora.observetree;
 
 import com.github.stasgora.observetree.enums.ListenerNotification;
 import com.github.stasgora.observetree.enums.ListenerPriority;
+import com.github.stasgora.observetree.listener.ChangeListener;
+import com.github.stasgora.observetree.listener.ListenerEntry;
 
 import java.util.HashSet;
 import java.util.Set;

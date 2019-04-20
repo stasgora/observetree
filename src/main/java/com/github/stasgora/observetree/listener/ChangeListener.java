@@ -5,7 +5,7 @@
  * See LICENSE file or go to http://www.opensource.org/licenses/mit-license.php for full license details.
  */
 
-package com.github.stasgora.observetree;
+package com.github.stasgora.observetree.listener;
 
 import com.github.stasgora.observetree.enums.ListenerPriority;
 

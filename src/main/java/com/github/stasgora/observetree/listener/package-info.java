@@ -6,6 +6,6 @@
  */
 
 /**
- * Observable listener enums
+ * Observable listener classes
  */
-package com.github.stasgora.observetree.enums;
+package com.github.stasgora.observetree.listener;

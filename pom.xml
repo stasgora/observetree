@@ -7,6 +7,14 @@
 	<groupId>io.github.stasgora</groupId>
 	<artifactId>observetree</artifactId>
 	<version>1.0</version>
+	<dependencies>
+		<dependency>
+			<groupId>org.jetbrains</groupId>
+			<artifactId>annotations</artifactId>
+			<version>RELEASE</version>
+			<scope>compile</scope>
+		</dependency>
+	</dependencies>
 
 	<name>Observetree</name>
 	<description>Library providing observables arranged in tree structure with propagating events</description>
