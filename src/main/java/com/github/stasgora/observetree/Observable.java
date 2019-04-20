@@ -64,22 +64,47 @@ public abstract class Observable extends ListenerManager {
 	private transient Set<Observable> parents = new HashSet<>();
 	private transient Set<Observable> children = new HashSet<>();
 
-	public void addListener(ChangeListener callback) {
-		add(listeners, callback);
+	/**
+	 * Adds the specified listener to the list of listeners with the default priority {@link ListenerPriority#NORMAL} (0).
+	 * @param listener element to be added
+	 * @return {@code true} if the listener was successfully added. {@code false} if it was already present
+	 */
+	public boolean addListener(ChangeListener listener) {
+		return add(listeners, listener);
 	}
 
-	public void addListener(ChangeListener callback, ListenerPriority priority) {
-		add(listeners, callback, priority);
+	/**
+	 * Adds the specified listener to the list of listeners with the specified priority.
+	 * @param listener element to be added
+	 * @param priority priority of this listener
+	 * @return {@code true} if the listener was successfully added. {@code false} if it was already present
+	 */
+	public boolean addListener(ChangeListener listener, ListenerPriority priority) {
+		return add(listeners, listener, priority);
 	}
 
-	public void addListener(ChangeListener callback, int priority) {
-		add(listeners, callback, priority);
+	/**
+	 * Adds the specified listener to the list of listeners with the specified priority.
+	 * @param listener element to be added
+	 * @param priority priority of this listener
+	 * @return {@code true} if the listener was successfully added. {@code false} if it was already present
+	 */
+	public boolean addListener(ChangeListener listener, int priority) {
+		return add(listeners, listener, priority);
 	}
 
-	public void removeListener(ChangeListener callback) {
-		remove(listeners, callback);
+	/**
+	 * Removes the specified listener from the list of listeners.
+	 * @param listener element to be removed
+	 * @return {@code true} if the listener was successfully removed. {@code false} if it was not found
+	 */
+	public boolean removeListener(ChangeListener listener) {
+		return remove(listeners, listener);
 	}
 
+	/**
+	 * @param observable
+	 */
 	protected void addSubObservable(Observable observable) {
 		initSubObservable(observable);
 		if(observable instanceof SettableObservable) {
@@ -90,17 +115,26 @@ public abstract class Observable extends ListenerManager {
 		}
 	}
 
+	/**
+	 * @param model
+	 */
 	protected void initSubObservable(Observable model) {
 		model.addParent(this);
 		children.add(model);
 		model.setUnchanged();
 	}
 
+	/**
+	 * @param model
+	 */
 	protected void removeSubObservable(Observable model) {
 		model.parents.remove(this);
 		children.remove(model);
 	}
 
+	/**
+	 *
+	 */
 	protected void onValueChanged() {
 		parents.forEach(Observable::onValueChanged);
 		wasValueChanged = true;
@@ -118,6 +152,9 @@ public abstract class Observable extends ListenerManager {
 		relatives.forEach(observable -> observable.collectListeners(direction, treeListeners));
 	}
 
+	/**
+	 *
+	 */
 	public void notifyListeners() {
 		Set<ListenerEntry> treeListeners = new TreeSet<>();
 		collectListeners(TreeTraverseDirection.UP, treeListeners);
@@ -125,14 +162,23 @@ public abstract class Observable extends ListenerManager {
 		treeListeners.forEach(entry -> entry.listener.call());
 	}
 
+	/**
+	 * @param observable
+	 */
 	public void copyListeners(Observable observable) {
 		listeners.forEach(listener -> observable.add(listeners, listener.listener, listener.priority));
 	}
 
+	/**
+	 *
+	 */
 	public void clearListeners() {
 		listeners.clear();
 	}
 
+	/**
+	 *
+	 */
 	public void setUnchanged() {
 		setUnchanged(TreeTraverseDirection.UP);
 		setUnchanged(TreeTraverseDirection.DOWN);

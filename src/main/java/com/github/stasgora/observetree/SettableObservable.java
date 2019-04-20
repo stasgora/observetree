@@ -34,26 +34,26 @@ public class SettableObservable<T extends Observable> extends SettableProperty<T
 		super(modelValue);
 	}
 
-	public void addStaticListener(ChangeListener callback) {
-		add(staticListeners, callback);
+	public boolean addStaticListener(ChangeListener listener) {
+		return add(staticListeners, listener);
 	}
 
-	public void addStaticListener(ChangeListener callback, ListenerPriority priority) {
-		add(staticListeners, callback, priority);
+	public boolean addStaticListener(ChangeListener listener, ListenerPriority priority) {
+		return add(staticListeners, listener, priority);
 	}
 
-	public void addStaticListener(ChangeListener callback, int priority) {
-		add(staticListeners, callback, priority);
+	public boolean addStaticListener(ChangeListener listener, int priority) {
+		return add(staticListeners, listener, priority);
 	}
 
-	public void removeStaticListener(ChangeListener callback) {
-		remove(staticListeners, callback);
+	public boolean removeStaticListener(ChangeListener listener) {
+		return remove(staticListeners, listener);
 	}
 
 	@Override
-	protected void addParent(Observable observable) {
-		super.addParent(observable);
+	protected boolean addParent(Observable observable) {
 		staticParents.add(observable);
+		return super.addParent(observable);
 	}
 
 	@Override

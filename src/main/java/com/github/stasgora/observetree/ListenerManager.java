@@ -10,6 +10,7 @@ package com.github.stasgora.observetree;
 import com.github.stasgora.observetree.enums.ListenerPriority;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -23,38 +24,42 @@ abstract class ListenerManager {
 	private transient Set<Observable> parents = new HashSet<>();
 	private transient Set<Observable> children = new HashSet<>();
 
-	public void add(Set<ListenerEntry> listenerSet, ChangeListener callback) {
-		add(listenerSet, callback, ListenerPriority.NORMAL);
+	protected boolean add(Set<ListenerEntry> listenerSet, ChangeListener listener) {
+		return add(listenerSet, listener, ListenerPriority.NORMAL);
 	}
 
-	public void add(Set<ListenerEntry> listenerSet, ChangeListener callback, ListenerPriority priority) {
-		add(listenerSet, callback, priority.value);
+	protected boolean add(Set<ListenerEntry> listenerSet, ChangeListener listener, ListenerPriority priority) {
+		return add(listenerSet, listener, priority.value);
 	}
 
-	public void add(Set<ListenerEntry> listenerSet, ChangeListener callback, int priority) {
-		if(listenerSet.stream().noneMatch(listener -> listener.listener == callback)) {
-			listenerSet.add(new ListenerEntry(callback, priority));
+	protected boolean add(Set<ListenerEntry> listenerSet, ChangeListener listener, int priority) {
+		if(listenerSet.stream().noneMatch(entry -> entry.listener == listener)) {
+			listenerSet.add(new ListenerEntry(listener, priority));
+			return true;
 		}
+		return false;
 	}
 
-	public void remove(Set<ListenerEntry> listenerSet, ChangeListener callback) {
-		listenerSet.stream().filter(listener -> listener.listener == callback).findFirst().ifPresent(listenerSet::remove);
+	protected boolean remove(Set<ListenerEntry> listenerSet, ChangeListener listener) {
+		Optional<ListenerEntry> optional = listenerSet.stream().filter(entry -> entry.listener == listener).findFirst();
+		optional.ifPresent(listenerSet::remove);
+		return optional.isPresent();
 	}
 
-	protected void addParent(Observable observable) {
-		parents.add(observable);
+	protected boolean addParent(Observable observable) {
+		return parents.add(observable);
 	}
 
-	protected void removeParent(Observable observable) {
-		parents.remove(observable);
+	protected boolean removeParent(Observable observable) {
+		return parents.remove(observable);
 	}
 
-	protected void addChild(Observable observable) {
-		children.add(observable);
+	protected boolean addChild(Observable observable) {
+		return children.add(observable);
 	}
 
-	protected void removeChild(Observable observable) {
-		children.remove(observable);
+	protected boolean removeChild(Observable observable) {
+		return children.remove(observable);
 	}
 
 }
