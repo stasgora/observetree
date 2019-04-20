@@ -16,24 +16,44 @@ import java.util.Optional;
 import java.util.Set;
 
 /**
- * Abstract base class providing add and remove methods for {@link ChangeListener} and {@link Observable} parents and children
+ * Abstract base class providing add and remove methods for {@link ChangeListener} and {@link ListenerManager} parents and children
  *
  * @author Stanisław Góra
  * @see Observable
  */
 public abstract class ListenerManager {
 
-	private transient Set<Observable> parents = new HashSet<>();
-	private transient Set<Observable> children = new HashSet<>();
+	private transient Set<ListenerManager> parents = new HashSet<>();
+	private transient Set<ListenerManager> children = new HashSet<>();
 
+	/**
+	 * Utility method containing logic associated with adding a {@code listener} to a specified {@code set}
+	 * @param listenerSet set to operate onto
+	 * @param listener element to be added
+	 * @return {@code true} if the listener was successfully added. {@code false} if it was already present
+	 */
 	protected boolean add(Set<ListenerEntry> listenerSet, ChangeListener listener) {
 		return add(listenerSet, listener, ListenerPriority.NORMAL);
 	}
 
+	/**
+	 * Utility method containing logic associated with adding a {@code listener} to a specified {@code set}
+	 * @param listenerSet set to operate onto
+	 * @param listener element to be added
+	 * @param priority priority of this listener
+	 * @return {@code true} if the listener was successfully added. {@code false} if it was already present
+	 */
 	protected boolean add(Set<ListenerEntry> listenerSet, ChangeListener listener, ListenerPriority priority) {
 		return add(listenerSet, listener, priority.value);
 	}
 
+	/**
+	 * Utility method containing logic associated with adding a {@code listener} to a specified {@code set}
+	 * @param listenerSet set to operate onto
+	 * @param listener element to be added
+	 * @param priority priority of this listener
+	 * @return {@code true} if the listener was successfully added. {@code false} if it was already present
+	 */
 	protected boolean add(Set<ListenerEntry> listenerSet, ChangeListener listener, int priority) {
 		if(listenerSet.stream().noneMatch(entry -> entry.listener == listener)) {
 			listenerSet.add(new ListenerEntry(listener, priority));
@@ -42,25 +62,52 @@ public abstract class ListenerManager {
 		return false;
 	}
 
+	/**
+	 * Utility method containing logic associated with removing a {@code listener} from a specified {@code set}
+	 * @param listenerSet set to operate onto
+	 * @param listener element to be removed
+	 * @return {@code true} if the listener was successfully removed. {@code false} if it was not found
+	 */
 	protected boolean remove(Set<ListenerEntry> listenerSet, ChangeListener listener) {
 		Optional<ListenerEntry> optional = listenerSet.stream().filter(entry -> entry.listener == listener).findFirst();
 		optional.ifPresent(listenerSet::remove);
 		return optional.isPresent();
 	}
 
-	protected boolean addParent(Observable observable) {
+	/**
+	 * Sets the specified {@code ListenerManager} as a parent of this {@code ListenerManager}.
+	 * @param observable parent to be added
+	 * @return {@code true} if the {@code ListenerManager} was successfully added. {@code false} if it was already present
+	 */
+	protected boolean addParent(ListenerManager observable) {
 		return parents.add(observable);
 	}
 
-	protected boolean removeParent(Observable observable) {
+	/**
+	 * Removes the specified {@code ListenerManager} from parents of this {@code ListenerManager}.
+	 * @param observable parent to be removed
+	 * @return {@code true} if the {@code ListenerManager} was successfully removed. {@code false} if it was not found
+	 */
+	protected boolean removeParent(ListenerManager observable) {
 		return parents.remove(observable);
 	}
 
-	protected boolean addChild(Observable observable) {
+
+	/**
+	 * Sets the specified {@code ListenerManager} as a child of this {@code ListenerManager}.
+	 * @param observable child to be added
+	 * @return {@code true} if the {@code ListenerManager} was successfully added. {@code false} if it was already present
+	 */
+	protected boolean addChild(ListenerManager observable) {
 		return children.add(observable);
 	}
 
-	protected boolean removeChild(Observable observable) {
+	/**
+	 * Removes the specified {@code ListenerManager} from children of this {@code ListenerManager}.
+	 * @param observable child to be removed
+	 * @return {@code true} if the {@code ListenerManager} was successfully removed. {@code false} if it was not found
+	 */
+	protected boolean removeChild(ListenerManager observable) {
 		return children.remove(observable);
 	}
 
