@@ -61,10 +61,7 @@ public abstract class Observable {
 	 * Listeners notification method
 	 */
 	public transient ListenerNotification notificationMethod = ListenerNotification.MANUAL;
-	/**
-	 * A flag specifying whether this {@code Observable} is currently marked as changed
-	 */
-	protected transient boolean wasValueChanged = false;
+	private transient boolean valueChanged = false;
 
 	private transient Set<ListenerEntry> listeners = new TreeSet<>();
 	private transient Set<Observable> parents = new HashSet<>();
@@ -127,7 +124,6 @@ public abstract class Observable {
 	private void initSubObservable(Observable model) {
 		model.addParent(this);
 		children.add(model);
-		model.setUnchanged();
 	}
 
 	/**
@@ -141,19 +137,19 @@ public abstract class Observable {
 	}
 
 	/**
-	 *
+	 * Marks the {@code Observable} and all its ancestors as changed. This method should be called inside a class extending {@code Observable} after a change was made.
 	 */
 	protected void onValueChanged() {
 		parents.forEach(Observable::onValueChanged);
-		wasValueChanged = true;
+		valueChanged = true;
 		if (notificationMethod == ListenerNotification.AUTOMATIC) {
 			listeners.forEach(entry -> entry.listener.call());
 		}
 	}
 
 	private void collectListeners(TreeTraverseDirection direction, Set<ListenerEntry> treeListeners) {
-		if(wasValueChanged && notificationMethod == ListenerNotification.MANUAL) {
-			wasValueChanged = false;
+		if(valueChanged && notificationMethod == ListenerNotification.MANUAL) {
+			valueChanged = false;
 			treeListeners.addAll(listeners);
 		}
 		Set<Observable> relatives = direction == TreeTraverseDirection.UP ? parents : children;
@@ -161,7 +157,9 @@ public abstract class Observable {
 	}
 
 	/**
-	 *
+	 * Invokes the listeners of all descendant and ancestor {@code Observables} that are currently marked as changed. Resets the changed flag.
+	 * The listeners are called in order of their priority (globally) - first the listeners with the highest priority from all the {@code Observables} will be called, etc.
+	 * The order at which the listeners with the same priority are called is undefined.
 	 */
 	public void notifyListeners() {
 		Set<ListenerEntry> treeListeners = new TreeSet<>();
@@ -171,29 +169,37 @@ public abstract class Observable {
 	}
 
 	/**
-	 * @param observable
+	 * Copies all the listeners from this {@code Observable} to a specified {@code Observable}.
+	 * @param observable element to copy the listeners to
 	 */
 	public void copyListeners(Observable observable) {
 		listeners.forEach(listener -> observable.add(listeners, listener.listener, listener.priority));
 	}
 
 	/**
-	 *
+	 * Removes all the listeners from this {@code Observable}
 	 */
 	public void clearListeners() {
 		listeners.clear();
 	}
 
+
 	/**
-	 *
+	 * Resets the changed flag on this object and - if the {@code traverseTree} flag is set to {@code true} -
+	 * all descendant and ancestor {@code Observables} that are currently marked as changed.
+	 * @param traverseTree whether to set all descendant and ancestor as unchanged
 	 */
-	public void setUnchanged() {
+	public void setUnchanged(boolean traverseTree) {
+		if(!traverseTree) {
+			valueChanged = false;
+			return;
+		}
 		setUnchanged(TreeTraverseDirection.UP);
 		setUnchanged(TreeTraverseDirection.DOWN);
 	}
 
 	private void setUnchanged(TreeTraverseDirection direction) {
-		wasValueChanged = false;
+		valueChanged = false;
 		Set<Observable> relatives = direction == TreeTraverseDirection.UP ? parents : children;
 		relatives.forEach(relative -> relative.setUnchanged(direction));
 	}
