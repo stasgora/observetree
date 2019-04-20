@@ -53,7 +53,9 @@ import java.util.TreeSet;
  * @author Stanisław Góra
  * @see SettableProperty
  * @see SettableObservable
+ * @see ChangeListener
  * @see ListenerPriority
+ * @see ListenerNotification
  */
 public abstract class Observable {
 
