@@ -16,7 +16,6 @@ import java.util.function.UnaryOperator;
  * @param <T> the type of the actual observable data type
  *
  * @author Stanisław Góra
- * @see SettableProperty
  * @see SettableObservable
  */
 public class SettableProperty<T> extends Observable implements Serializable {

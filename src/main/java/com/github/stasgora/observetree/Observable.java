@@ -13,6 +13,7 @@ import com.github.stasgora.observetree.listener.ChangeListener;
 import com.github.stasgora.observetree.listener.ListenerEntry;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -54,13 +55,16 @@ import java.util.TreeSet;
  * @see SettableObservable
  * @see ListenerPriority
  */
-public abstract class Observable extends ListenerManager {
+public abstract class Observable {
 
 	/**
 	 * Listeners notification method
 	 */
 	public transient ListenerNotification notificationMethod = ListenerNotification.MANUAL;
-	private transient boolean wasValueChanged = false;
+	/**
+	 * A flag specifying whether this {@code Observable} is currently marked as changed
+	 */
+	protected transient boolean wasValueChanged = false;
 
 	private transient Set<ListenerEntry> listeners = new TreeSet<>();
 	private transient Set<Observable> parents = new HashSet<>();
@@ -105,7 +109,10 @@ public abstract class Observable extends ListenerManager {
 	}
 
 	/**
-	 * @param observable
+	 * Adds the specified {@code Observable} to the tree as a child of this {@code Observable}.
+	 * This method is recommended for creating the {@code Observable} relations instead of plain {@link #addParent(Observable)} and {@link #addChild(Observable)}
+	 * as it binds {@code Observables} both ways. It additionally supports {@link SettableObservable} by binding its value as a child (if present).
+	 * @param observable element to be inserted into the tree as a child of this {@code Observable}
 	 */
 	protected void addSubObservable(Observable observable) {
 		initSubObservable(observable);
@@ -117,17 +124,16 @@ public abstract class Observable extends ListenerManager {
 		}
 	}
 
-	/**
-	 * @param model
-	 */
-	protected void initSubObservable(Observable model) {
+	private void initSubObservable(Observable model) {
 		model.addParent(this);
 		children.add(model);
 		model.setUnchanged();
 	}
 
 	/**
-	 * @param model
+	 * Removes the specified {@code Observable} from the tree. This method is recommended for breaking the {@code Observable} relations
+	 * instead of plain {@link #removeParent(Observable)} and {@link #removeChild(Observable)} as it unbinds {@code Observables} both ways.
+	 * @param model element to be removed from the tree
 	 */
 	protected void removeSubObservable(Observable model) {
 		model.parents.remove(this);
@@ -190,6 +196,93 @@ public abstract class Observable extends ListenerManager {
 		wasValueChanged = false;
 		Set<Observable> relatives = direction == TreeTraverseDirection.UP ? parents : children;
 		relatives.forEach(relative -> relative.setUnchanged(direction));
+	}
+
+	/**
+	 * Utility method containing logic associated with adding a {@code listener} to a specified {@code set}
+	 * @param listenerSet set to operate onto
+	 * @param listener element to be added
+	 * @return {@code true} if the listener was successfully added. {@code false} if it was already present
+	 */
+	protected boolean add(Set<ListenerEntry> listenerSet, ChangeListener listener) {
+		return add(listenerSet, listener, ListenerPriority.NORMAL);
+	}
+
+	/**
+	 * Utility method containing logic associated with adding a {@code listener} to a specified {@code set}
+	 * @param listenerSet set to operate onto
+	 * @param listener element to be added
+	 * @param priority priority of this listener
+	 * @return {@code true} if the listener was successfully added. {@code false} if it was already present
+	 */
+	protected boolean add(Set<ListenerEntry> listenerSet, ChangeListener listener, ListenerPriority priority) {
+		return add(listenerSet, listener, priority.value);
+	}
+
+	/**
+	 * Utility method containing logic associated with adding a {@code listener} to a specified {@code set}
+	 * @param listenerSet set to operate onto
+	 * @param listener element to be added
+	 * @param priority priority of this listener
+	 * @return {@code true} if the listener was successfully added. {@code false} if it was already present
+	 */
+	protected boolean add(Set<ListenerEntry> listenerSet, ChangeListener listener, int priority) {
+		if(listenerSet.stream().noneMatch(entry -> entry.listener == listener)) {
+			listenerSet.add(new ListenerEntry(listener, priority));
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * Utility method containing logic associated with removing a {@code listener} from a specified {@code set}
+	 * @param listenerSet set to operate onto
+	 * @param listener element to be removed
+	 * @return {@code true} if the listener was successfully removed. {@code false} if it was not found
+	 */
+	protected boolean remove(Set<ListenerEntry> listenerSet, ChangeListener listener) {
+		Optional<ListenerEntry> optional = listenerSet.stream().filter(entry -> entry.listener == listener).findFirst();
+		optional.ifPresent(listenerSet::remove);
+		return optional.isPresent();
+	}
+
+	/**
+	 * Sets the specified {@code Observable} as a parent of this {@code Observable}. <i>Note: this creates only one way binding.</i>
+	 * {@link #addSubObservable(Observable)} method is recommended for setting up {@code Observable} relations.
+	 * @param observable parent to be added
+	 * @return {@code true} if the {@code Observable} was successfully added. {@code false} if it was already present
+	 */
+	protected boolean addParent(Observable observable) {
+		return parents.add(observable);
+	}
+
+	/**
+	 * Removes the specified {@code Observable} from parents of this {@code Observable}.
+	 * @param observable parent to be removed
+	 * @return {@code true} if the {@code Observable} was successfully removed. {@code false} if it was not found
+	 */
+	protected boolean removeParent(Observable observable) {
+		return parents.remove(observable);
+	}
+
+
+	/**
+	 * Sets the specified {@code Observable} as a child of this {@code Observable}. <i>Note: this creates only one way binding.</i>
+	 * {@link #addSubObservable(Observable)} method is recommended for setting up {@code Observable} relations.
+	 * @param observable child to be added
+	 * @return {@code true} if the {@code Observable} was successfully added. {@code false} if it was already present
+	 */
+	protected boolean addChild(Observable observable) {
+		return children.add(observable);
+	}
+
+	/**
+	 * Removes the specified {@code Observable} from children of this {@code Observable}.
+	 * @param observable child to be removed
+	 * @return {@code true} if the {@code Observable} was successfully removed. {@code false} if it was not found
+	 */
+	protected boolean removeChild(Observable observable) {
+		return children.remove(observable);
 	}
 
 	private enum TreeTraverseDirection {

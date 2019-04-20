@@ -22,7 +22,6 @@ import java.util.TreeSet;
  *
  * @author Stanisław Góra
  * @see SettableProperty
- * @see SettableObservable
  */
 public class SettableObservable<T extends Observable> extends SettableProperty<T> {
 
