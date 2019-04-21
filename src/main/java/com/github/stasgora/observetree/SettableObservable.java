@@ -16,9 +16,11 @@ import java.util.Set;
 import java.util.TreeSet;
 
 /**
- * Maintains a set of observable listeners and parents for settable property
+ * Extends the functionality of the {@link SettableProperty} for {@link #modelValue} extending {@link Observable}.
+ * Maintains a persistent set of {@link #modelValue} listeners that are copied over whenever a new {@link #modelValue} is set.
+ * Parents of this {@code SettableProperty} automatically become parents of it's {@link #modelValue}.
  *
- * @param <T> the type of the actual observable data type. Must inherit from {@link Observable}
+ * @param <T> the type of the actual observable data type. Must extend from {@link Observable}
  *
  * @author Stanisław Góra
  * @see SettableProperty
@@ -26,7 +28,6 @@ import java.util.TreeSet;
 public class SettableObservable<T extends Observable> extends SettableProperty<T> {
 
 	private transient Set<ListenerEntry> staticListeners = new TreeSet<>();
-	private transient Set<Observable> staticParents = new HashSet<>();
 
 	public SettableObservable() {
 	}
@@ -53,8 +54,18 @@ public class SettableObservable<T extends Observable> extends SettableProperty<T
 
 	@Override
 	protected boolean addParent(Observable observable) {
-		staticParents.add(observable);
+		if(modelValue != null) {
+			observable.addSubObservable(modelValue);
+		}
 		return super.addParent(observable);
+	}
+
+	@Override
+	protected boolean removeParent(Observable observable) {
+		if(modelValue != null) {
+			observable.removeSubObservable(modelValue);
+		}
+		return super.removeParent(observable);
 	}
 
 	@Override
@@ -62,12 +73,12 @@ public class SettableObservable<T extends Observable> extends SettableProperty<T
 		if(this.modelValue == modelValue) {
 			return;
 		}
+		if(this.modelValue != null) {
+			getParents().forEach(parent -> parent.removeSubObservable(this.modelValue));
+		}
 		if(modelValue != null) {
 			staticListeners.forEach(listener -> modelValue.addListener(listener.listener, listener.priority));
-			staticParents.forEach(parent -> parent.addSubObservable(modelValue));
-		}
-		if(this.modelValue != null) {
-			staticParents.forEach(parent -> parent.removeSubObservable(this.modelValue));
+			getParents().forEach(parent -> parent.addSubObservable(modelValue));
 		}
 		super.set(modelValue);
 	}

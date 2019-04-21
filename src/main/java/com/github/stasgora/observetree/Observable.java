@@ -110,32 +110,22 @@ public abstract class Observable {
 	/**
 	 * Adds the specified {@code Observable} to the tree as a child of this {@code Observable}.
 	 * This method is recommended for creating the {@code Observable} relations instead of plain {@link #addParent(Observable)} and {@link #addChild(Observable)}
-	 * as it binds {@code Observables} both ways. It additionally supports {@link SettableObservable} by binding its value as a child (if present).
+	 * as it binds {@code Observables} both ways.
 	 * @param observable element to be inserted into the tree as a child of this {@code Observable}
 	 */
 	protected void addSubObservable(Observable observable) {
-		initSubObservable(observable);
-		if(observable instanceof SettableObservable) {
-			SettableObservable settableObservable = (SettableObservable) observable;
-			if(settableObservable.present()) {
-				initSubObservable((Observable) settableObservable.modelValue);
-			}
-		}
-	}
-
-	private void initSubObservable(Observable model) {
-		model.addParent(this);
-		children.add(model);
+		addChild(observable);
+		observable.addParent(this);
 	}
 
 	/**
 	 * Removes the specified {@code Observable} from the tree. This method is recommended for removing {@code Observable} relations
 	 * instead of plain {@link #removeParent(Observable)} and {@link #removeChild(Observable)} as it unbinds {@code Observables} both ways.
-	 * @param model element to be removed from the tree
+	 * @param observable element to be removed from the tree
 	 */
-	protected void removeSubObservable(Observable model) {
-		model.parents.remove(this);
-		children.remove(model);
+	protected void removeSubObservable(Observable observable) {
+		removeChild(observable);
+		observable.removeParent(this);
 	}
 
 	/**
@@ -293,6 +283,22 @@ public abstract class Observable {
 	 */
 	protected boolean removeChild(Observable observable) {
 		return children.remove(observable);
+	}
+
+	/**
+	 * Returns parents of this {@code Observable}
+	 * @return a set containing all the parents of this object
+	 */
+	public Set<Observable> getParents() {
+		return parents;
+	}
+
+	/**
+	 * Returns children of this {@code Observable}
+	 * @return a set containing all the children of this object
+	 */
+	public Set<Observable> getChildren() {
+		return children;
 	}
 
 	private enum TreeTraverseDirection {
