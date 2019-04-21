@@ -129,7 +129,7 @@ public abstract class Observable {
 	}
 
 	/**
-	 * Removes the specified {@code Observable} from the tree. This method is recommended for breaking the {@code Observable} relations
+	 * Removes the specified {@code Observable} from the tree. This method is recommended for removing {@code Observable} relations
 	 * instead of plain {@link #removeParent(Observable)} and {@link #removeChild(Observable)} as it unbinds {@code Observables} both ways.
 	 * @param model element to be removed from the tree
 	 */
@@ -207,7 +207,7 @@ public abstract class Observable {
 	}
 
 	/**
-	 * Utility method containing logic associated with adding a {@code listener} to a specified {@code set}
+	 * Utility method used internally that contains logic associated with adding a {@code listener} to a specified {@code set}
 	 * @param listenerSet set to operate onto
 	 * @param listener element to be added
 	 * @return {@code true} if the listener was successfully added. {@code false} if it was already present
@@ -217,7 +217,7 @@ public abstract class Observable {
 	}
 
 	/**
-	 * Utility method containing logic associated with adding a {@code listener} to a specified {@code set}
+	 * Utility method used internally that contains logic associated with adding a {@code listener} to a specified {@code set}
 	 * @param listenerSet set to operate onto
 	 * @param listener element to be added
 	 * @param priority priority of this listener
@@ -228,7 +228,7 @@ public abstract class Observable {
 	}
 
 	/**
-	 * Utility method containing logic associated with adding a {@code listener} to a specified {@code set}
+	 * Utility method used internally that contains logic associated with adding a {@code listener} to a specified {@code set}
 	 * @param listenerSet set to operate onto
 	 * @param listener element to be added
 	 * @param priority priority of this listener
@@ -243,7 +243,7 @@ public abstract class Observable {
 	}
 
 	/**
-	 * Utility method containing logic associated with removing a {@code listener} from a specified {@code set}
+	 * Utility method used internally that contains logic associated with removing a {@code listener} from a specified {@code set}
 	 * @param listenerSet set to operate onto
 	 * @param listener element to be removed
 	 * @return {@code true} if the listener was successfully removed. {@code false} if it was not found
@@ -265,7 +265,8 @@ public abstract class Observable {
 	}
 
 	/**
-	 * Removes the specified {@code Observable} from parents of this {@code Observable}.
+	 * Removes the specified {@code Observable} from parents of this {@code Observable}. <i>Note: this removed one way binding only.</i>
+	 * {@link #removeSubObservable(Observable)} method is recommended for removing {@code Observable} relations.
 	 * @param observable parent to be removed
 	 * @return {@code true} if the {@code Observable} was successfully removed. {@code false} if it was not found
 	 */
@@ -285,7 +286,8 @@ public abstract class Observable {
 	}
 
 	/**
-	 * Removes the specified {@code Observable} from children of this {@code Observable}.
+	 * Removes the specified {@code Observable} from children of this {@code Observable}. <i>Note: this removed one way binding only.</i>
+	 * {@link #removeSubObservable(Observable)} method is recommended for removing {@code Observable} relations.
 	 * @param observable child to be removed
 	 * @return {@code true} if the {@code Observable} was successfully removed. {@code false} if it was not found
 	 */
