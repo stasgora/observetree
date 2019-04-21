@@ -6,6 +6,6 @@
  */
 
 /**
- * Library providing observables arranged in tree structure with propagating events
+ * Provides library Observable classes
  */
 package com.github.stasgora.observetree;

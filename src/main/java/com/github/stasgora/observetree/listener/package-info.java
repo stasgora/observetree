@@ -6,6 +6,6 @@
  */
 
 /**
- * Observable listener classes
+ * Provides listener helper classes
  */
 package com.github.stasgora.observetree.listener;
