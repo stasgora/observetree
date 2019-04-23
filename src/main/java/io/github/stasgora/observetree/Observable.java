@@ -5,12 +5,12 @@
  * See LICENSE file or go to http://www.opensource.org/licenses/mit-license.php for full license details.
  */
 
-package com.github.stasgora.observetree;
+package io.github.stasgora.observetree;
 
-import com.github.stasgora.observetree.enums.ListenerNotification;
-import com.github.stasgora.observetree.enums.ListenerPriority;
-import com.github.stasgora.observetree.listener.ChangeListener;
-import com.github.stasgora.observetree.listener.ListenerEntry;
+import io.github.stasgora.observetree.enums.ListenerNotification;
+import io.github.stasgora.observetree.enums.ListenerPriority;
+import io.github.stasgora.observetree.listener.ChangeListener;
+import io.github.stasgora.observetree.listener.ListenerEntry;
 
 import java.util.HashSet;
 import java.util.Optional;

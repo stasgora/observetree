@@ -5,12 +5,13 @@
  * See LICENSE file or go to http://www.opensource.org/licenses/mit-license.php for full license details.
  */
 
-package com.github.stasgora.observetree.listener;
+package io.github.stasgora.observetree.listener;
 
-import com.github.stasgora.observetree.enums.ListenerPriority;
+import io.github.stasgora.observetree.Observable;
+import io.github.stasgora.observetree.enums.ListenerPriority;
 
 /**
- * Represents a listener that subscribes to the changes of {@link com.github.stasgora.observetree.Observable}
+ * Represents a listener that subscribes to the changes of {@link Observable}
  * <p>This is a <i>functional interface</i> whose functional method is {@link #call()}</p>
  *
  * @author Stanisław Góra
@@ -19,7 +20,7 @@ import com.github.stasgora.observetree.enums.ListenerPriority;
 @FunctionalInterface
 public interface ChangeListener {
 	/**
-	 * Gets called whenever the subscribed {@link com.github.stasgora.observetree.Observable} is changed.
+	 * Gets called whenever the subscribed {@link Observable} is changed.
 	 */
 	void call();
 }

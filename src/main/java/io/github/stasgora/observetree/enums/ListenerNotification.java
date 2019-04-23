@@ -5,10 +5,10 @@
  * See LICENSE file or go to http://www.opensource.org/licenses/mit-license.php for full license details.
  */
 
-package com.github.stasgora.observetree.enums;
+package io.github.stasgora.observetree.enums;
 
-import com.github.stasgora.observetree.listener.ChangeListener;
-import com.github.stasgora.observetree.Observable;
+import io.github.stasgora.observetree.listener.ChangeListener;
+import io.github.stasgora.observetree.Observable;
 
 /**
  * Observable listener notification method

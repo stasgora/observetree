@@ -5,7 +5,7 @@
  * See LICENSE file or go to http://www.opensource.org/licenses/mit-license.php for full license details.
  */
 
-package com.github.stasgora.observetree.listener;
+package io.github.stasgora.observetree.listener;
 
 import java.util.Objects;
 

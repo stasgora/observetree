@@ -8,4 +8,4 @@
 /**
  * Provides listener helper classes
  */
-package com.github.stasgora.observetree.listener;
+package io.github.stasgora.observetree.listener;

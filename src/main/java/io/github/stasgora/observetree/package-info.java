@@ -8,4 +8,4 @@
 /**
  * Provides library Observable classes
  */
-package com.github.stasgora.observetree;
+package io.github.stasgora.observetree;

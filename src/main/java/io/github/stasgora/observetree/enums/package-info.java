@@ -8,4 +8,4 @@
 /**
  * Provides utility listener enums
  */
-package com.github.stasgora.observetree.enums;
+package io.github.stasgora.observetree.enums;

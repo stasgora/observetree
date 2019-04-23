@@ -1,4 +1,4 @@
 module:stasgora.observetree
-com.github.stasgora.observetree
-com.github.stasgora.observetree.enums
-com.github.stasgora.observetree.listener
+io.github.stasgora.observetree
+io.github.stasgora.observetree.enums
+io.github.stasgora.observetree.listener

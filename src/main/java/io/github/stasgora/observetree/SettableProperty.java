@@ -5,7 +5,7 @@
  * See LICENSE file or go to http://www.opensource.org/licenses/mit-license.php for full license details.
  */
 
-package com.github.stasgora.observetree;
+package io.github.stasgora.observetree;
 
 import java.io.Serializable;
 import java.util.function.UnaryOperator;
