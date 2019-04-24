@@ -19,7 +19,7 @@ import java.util.TreeSet;
 
 /**
  * Base {@code Observable} class that holds a list of listeners and notifies them when it changes.
- * Use one of the {@link #add(Set, ChangeListener)} methods to register a listener.
+ * Use one of the {@link #addListener(ChangeListener)} methods to register a listener.
  *
  * <p>To signal that the {@code Observable} has changed call {@link #onValueChanged()} from the extending class.
  * When {@link #notificationMethod} is {@code true}, the changing entity should additionally call {@link #notifyListeners()} when it wants the callbacks to fire.
