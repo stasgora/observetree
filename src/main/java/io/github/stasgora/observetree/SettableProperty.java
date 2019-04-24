@@ -12,6 +12,7 @@ import java.util.function.UnaryOperator;
 
 /**
  * A wrapper class that encapsulates another object - {@link #modelValue} - and notifies it's listeners when the {@link #modelValue} is set.
+ * {@code equals()} method is used to determine if {@link #defaultValue} was changed.
  * It supports {@link #defaultValue} for the {@link #modelValue} that can be set and reset to.
  *
  * @param <T> the type of the actual observable data type
@@ -67,7 +68,7 @@ public class SettableProperty<T> extends Observable implements Serializable {
 	 * @param modelValue value to be set
 	 */
 	public void set(T modelValue) {
-		if(this.modelValue == modelValue) {
+		if(this.modelValue.equals(modelValue)) {
 			return;
 		}
 		this.modelValue = modelValue;
