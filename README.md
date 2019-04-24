@@ -14,11 +14,11 @@ For detailed technical description see [Observable class](https://stasgora.githu
 #### Maven
 
 ```xml
-  <dependency>
-    <groupId>io.github.stasgora</groupId>
-    <artifactId>observetree</artifactId>
-    <version>${observetree-version}</version>
-  </dependency>
+<dependency>
+  <groupId>io.github.stasgora</groupId>
+  <artifactId>observetree</artifactId>
+  <version>${observetree-version}</version>
+</dependency>
 ```
 #### Manual
 See the [release page](https://github.com/stasgora/observetree/releases) for _jar_ downloads. Follow your IDE instructions for detailed steps on adding external library dependencies to your project.
@@ -47,4 +47,41 @@ p.addListener(() -> {...});
 ```java
 p.set(1, 1);
 p.notifyListeners();
+```
+
+### Advanced functions
+#### Using _Observable_ trees
+- Build model structure:
+```java
+class Model extends Observable {
+  public Point point;
+  ...
+  public Model() {
+    addSubObservable(point);
+    ...
+  }
+}
+```
+- You can subscribe to changes of objects on different levels:
+```java
+model.addListener(...);
+model.point.addListener(...);
+```
+- After changes to potentially many objects notify listeners of all changed objects in tree:
+```java
+model.notifyListeners();
+```
+(For detailed behaviour description see the [documentation](https://stasgora.github.io/observetree/com/github/stasgora/observetree/Observable.html))
+#### Specifying listener priority
+```java
+p.addListener(() -> {...}, ListenerPriority.HIGH);
+```
+#### Creating _Settables_ out of external objects
+- Declare:
+```java
+SettableProperty<Integer> size = new SettableProperty<>(1);
+```
+- Get notified when the value is set:
+```java
+size.set(2);
 ```
