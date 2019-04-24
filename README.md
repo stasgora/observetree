@@ -1,4 +1,4 @@
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.stasgora/observetree/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.stasgora/observetree)
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.stasgora/observetree.svg)](https://search.maven.org/search?q=g:%22io.github.stasgora%22%20AND%20a:%22observetree%22)
 
 # Observetree library
 Library extends the classic _Observable pattern_ by integrating it in a tree structure. _Change events_ are propagated through the Observable tree. _Listeners_ can be assigned a priority to control the order at which they are called.
@@ -12,7 +12,7 @@ For detailed technical description see [Observable class](https://stasgora.githu
 
 ### Installation
 #### Maven
-Latest version [![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.stasgora/observetree/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.stasgora/observetree)
+Latest version [![Maven Central](https://img.shields.io/maven-central/v/io.github.stasgora/observetree.svg)](https://search.maven.org/search?q=g:%22io.github.stasgora%22%20AND%20a:%22observetree%22)
 ```xml
 <dependency>
   <groupId>io.github.stasgora</groupId>
