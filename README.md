@@ -98,3 +98,9 @@ point.addStaticListener(() -> {...});
 ```java
 point.set(new Point());
 ```
+
+### Author
+Stanisław Góra
+
+### License
+[MIT License](http://www.opensource.org/licenses/mit-license.php)
