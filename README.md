@@ -20,6 +20,7 @@ Latest version [![Maven Central](https://img.shields.io/maven-central/v/io.githu
   <version>${observetree-version}</version>
 </dependency>
 ```
+SNAPSHOT versions are **not** synchronized to Central. If you want to use a snapshot version you need to add the https://oss.sonatype.org/content/repositories/snapshots/ repository to your pom.xml.
 #### Manual
 See the [release page](https://github.com/stasgora/observetree/releases) for _jar_ downloads. Follow your IDE instructions for detailed steps on adding external library dependencies to your project.
 
