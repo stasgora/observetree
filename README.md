@@ -12,7 +12,7 @@ For detailed technical description see [Observable class](https://stasgora.githu
 
 ### Installation
 #### Maven
-
+Latest version [![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.stasgora/observetree/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.stasgora/observetree)
 ```xml
 <dependency>
   <groupId>io.github.stasgora</groupId>
@@ -64,7 +64,7 @@ class Model extends Observable {
 ```
 - You can subscribe to changes of objects on different levels:
 ```java
-model.addListener(...);
+model.addListener(...); // Changes to model and all it's sub-observables
 model.point.addListener(...);
 ```
 - After changes to potentially many objects notify listeners of all changed objects in tree:
@@ -84,4 +84,17 @@ SettableProperty<Integer> size = new SettableProperty<>(1);
 - Get notified when the value is set:
 ```java
 size.set(2);
+```
+#### Using _Settable Observables_ with persistent listeners
+- Declare:
+```java
+SettableObservable<Point> point = new SettableObservable<>(new Point());
+```
+- Register static listener:
+```java
+point.addStaticListener(() -> {...});
+```
+- After replacing the object the listeners will remain attached:
+```java
+point.set(new Point());
 ```
