@@ -190,6 +190,15 @@ public abstract class Observable {
 		setUnchanged(TreeTraverseDirection.DOWN);
 	}
 
+
+	/**
+	 * Returns whether this {@code Observable} was changed and it's listeners not yet called
+	 * @return {@code true} if the {@code Observable} was changed. {@code false} if not
+	 */
+	public boolean isValueChanged() {
+		return valueChanged;
+	}
+
 	private void setUnchanged(TreeTraverseDirection direction) {
 		valueChanged = false;
 		Set<Observable> relatives = direction == TreeTraverseDirection.UP ? parents : children;

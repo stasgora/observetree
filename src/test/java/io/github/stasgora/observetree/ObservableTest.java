@@ -75,6 +75,7 @@ public class ObservableTest {
 		parent.addListener(listener);
 
 		observable.setValue(VALUE_TO_SET);
+		Assert.assertTrue(parent.isValueChanged());
 		observable.notifyListeners();
 		verifyListenerCalled(listener, 1);
 	}
@@ -87,6 +88,20 @@ public class ObservableTest {
 		parent.removeSubObservable(observable);
 
 		observable.setValue(VALUE_TO_SET);
+		Assert.assertFalse(parent.isValueChanged());
+		observable.notifyListeners();
+		verifyListenerCalled(listener, 0);
+	}
+
+	@Test
+	public void whenObservableIsSetAsUnchanged_noChangedCallbackAreCalled() {
+		TestObservable parent = new TestObservable();
+		parent.addSubObservable(observable);
+		parent.addListener(listener);
+		observable.addListener(listener);
+
+		observable.setValue(VALUE_TO_SET);
+		observable.setUnchanged(true);
 		observable.notifyListeners();
 		verifyListenerCalled(listener, 0);
 	}
