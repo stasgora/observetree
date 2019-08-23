@@ -22,7 +22,7 @@ import java.util.TreeSet;
  * Use one of the {@link #addListener(ChangeListener)} methods to register a listener.
  *
  * <p>To signal that the {@code Observable} has changed call {@link #onValueChanged()} from the extending class.
- * When {@link #notificationMethod} is {@code true}, the changing entity should additionally call {@link #notifyListeners()} when it wants the callbacks to fire.
+ * When {@link #notificationMethod} is {@link ListenerNotification#MANUAL}, the changing entity should additionally call {@link #notifyListeners()} when it wants the callbacks to fire.
  *
  * <p>Use {@link #notificationMethod} flag to configure whether {@link #notifyListeners()} should be called:
  * <ul>
@@ -135,12 +135,12 @@ public abstract class Observable {
 		parents.forEach(Observable::onValueChanged);
 		valueChanged = true;
 		if (notificationMethod == ListenerNotification.AUTOMATIC) {
-			listeners.forEach(entry -> entry.listener.call());
+			notifyListeners();
 		}
 	}
 
 	private void collectListeners(TreeTraverseDirection direction, Set<ListenerEntry> treeListeners) {
-		if(valueChanged && notificationMethod == ListenerNotification.MANUAL) {
+		if(valueChanged) {
 			valueChanged = false;
 			treeListeners.addAll(listeners);
 		}
