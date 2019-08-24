@@ -132,6 +132,7 @@ public class ObservableTreeTest extends ObservableTestBase {
 		childObservable.setValue(VALUE_TO_SET);
 		observable.setUnchanged(false);
 		childObservable.notifyListeners();
+
 		verifyListenerCalled(parentListener, 1);
 		verifyListenerCalled(listener, 0);
 		verifyListenerCalled(childListener, 1);
