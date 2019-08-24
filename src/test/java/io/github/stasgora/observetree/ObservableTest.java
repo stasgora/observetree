@@ -56,4 +56,27 @@ public class ObservableTest extends ObservableTestBase {
 		inOrder.verify(listener, Mockito.times(1)).call();
 	}
 
+	@Test
+	public void clearListeners_removesAllListeners() {
+		observable.addListener(listener);
+
+		observable.clearListeners();
+		observable.setValue(VALUE_TO_SET);
+		observable.notifyListeners();
+
+		verifyListenerCalled(listener, 0);
+	}
+
+	@Test
+	public void copyingListeners_works() {
+		TestObservable otherObservable = new TestObservable();
+		observable.addListener(listener);
+
+		observable.copyListeners(otherObservable);
+		otherObservable.setValue(VALUE_TO_SET);
+		otherObservable.notifyListeners();
+
+		verifyListenerCalled(listener, 1);
+	}
+
 }

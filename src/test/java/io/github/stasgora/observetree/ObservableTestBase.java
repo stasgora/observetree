@@ -23,7 +23,7 @@ public abstract class ObservableTestBase {
 	@Before
 	public void prepareObjects() {
 		observable = new TestObservable();
-		listener = mockListener(() -> Assert.assertEquals(observable.value, VALUE_TO_SET));
+		listener = mockListener(() -> {});
 	}
 
 	protected ChangeListener mockListener(ChangeListener listener) {

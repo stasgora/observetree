@@ -8,11 +8,18 @@
 package io.github.stasgora.observetree;
 
 import io.github.stasgora.observetree.enums.ListenerNotification;
+import io.github.stasgora.observetree.enums.ListenerPriority;
+import io.github.stasgora.observetree.listener.ChangeListener;
 import org.junit.Assert;
 import org.junit.Test;
+import org.mockito.InOrder;
+import org.mockito.Mockito;
+
+import java.util.Collections;
 
 public class ObservableTreeTest extends ObservableTestBase {
 	private TestObservable parent;
+	private ChangeListener parentListener = mockListener(() -> {});
 
 	@Override
 	public void prepareObjects() {
@@ -41,7 +48,21 @@ public class ObservableTreeTest extends ObservableTestBase {
 	}
 
 	@Test
+	public void whenAddingParent_itIsRegistered() {
+		Assert.assertEquals(observable.getParents(), Collections.singleton(parent));
+		Assert.assertEquals(parent.getChildren(), Collections.singleton(observable));
+	}
+
+	@Test
 	public void whenParentObservableIsRemoved_itIsUnregistered() {
+		parent.removeSubObservable(observable);
+
+		Assert.assertEquals(observable.getParents(), Collections.emptySet());
+		Assert.assertEquals(parent.getChildren(), Collections.emptySet());
+	}
+
+	@Test
+	public void whenParentObservableIsRemoved_itsListenerIsNotCalled() {
 		parent.addListener(listener);
 		parent.removeSubObservable(observable);
 
@@ -52,7 +73,21 @@ public class ObservableTreeTest extends ObservableTestBase {
 	}
 
 	@Test
-	public void whenObservableIsSetAsUnchanged_noChangedCallbackAreCalled() {
+	public void whenParentObservableListenerHasHigherPriority_itIsCalledEarlier() {
+		ChangeListener highPriorityListener = mockListener(() -> {});
+		parent.addListener(highPriorityListener, ListenerPriority.HIGH);
+		observable.addListener(listener);
+
+		observable.setValue(VALUE_TO_SET);
+		observable.notifyListeners();
+
+		InOrder inOrder = Mockito.inOrder(listener, highPriorityListener);
+		inOrder.verify(highPriorityListener, Mockito.times(1)).call();
+		inOrder.verify(listener, Mockito.times(1)).call();
+	}
+
+	@Test
+	public void whenObservableIsSetAsUnchangedTraversingTree_noChangedCallbackAreCalled() {
 		parent.addListener(listener);
 		observable.addListener(listener);
 
@@ -60,5 +95,45 @@ public class ObservableTreeTest extends ObservableTestBase {
 		observable.setUnchanged(true);
 		observable.notifyListeners();
 		verifyListenerCalled(listener, 0);
+	}
+
+	@Test
+	public void whenObservableIsSetAsUnchangedWithoutTraversingTree_onlyParentListenerIsCalled() {
+		ChangeListener differentListener = mockListener(() -> {});
+		parent.addListener(differentListener);
+		observable.addListener(listener);
+
+		observable.setValue(VALUE_TO_SET);
+		observable.setUnchanged(false);
+		observable.notifyListeners();
+		verifyListenerCalled(differentListener, 1);
+		verifyListenerCalled(listener, 0);
+	}
+
+	@Test
+	public void whenChangedChildIsAdded_parentIsSetAsChangedAsWell() {
+		parent.removeSubObservable(observable);
+		observable.setValue(VALUE_TO_SET);
+
+		Assert.assertFalse(parent.isValueChanged());
+		parent.addSubObservable(observable);
+		Assert.assertTrue(parent.isValueChanged());
+	}
+
+	@Test
+	public void onlyChangedChildrenListeners_getCalled() {
+		TestObservable childObservable = new TestObservable();
+		ChangeListener childListener = mockListener(() -> {});
+		childObservable.addListener(childListener);
+		observable.addListener(listener);
+		parent.addListener(parentListener);
+		observable.addSubObservable(childObservable);
+
+		childObservable.setValue(VALUE_TO_SET);
+		observable.setUnchanged(false);
+		childObservable.notifyListeners();
+		verifyListenerCalled(parentListener, 1);
+		verifyListenerCalled(listener, 0);
+		verifyListenerCalled(childListener, 1);
 	}
 }

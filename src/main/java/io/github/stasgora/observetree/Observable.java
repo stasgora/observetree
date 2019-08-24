@@ -116,6 +116,8 @@ public abstract class Observable {
 	protected void addSubObservable(Observable observable) {
 		addChild(observable);
 		observable.addParent(this);
+		if(observable.isValueChanged())
+			observable.onValueChanged();
 	}
 
 	/**
@@ -165,7 +167,7 @@ public abstract class Observable {
 	 * @param observable element to copy the listeners to
 	 */
 	public void copyListeners(Observable observable) {
-		listeners.forEach(listener -> observable.add(listeners, listener.listener, listener.priority));
+		listeners.forEach(listener -> observable.add(observable.listeners, listener.listener, listener.priority));
 	}
 
 	/**
