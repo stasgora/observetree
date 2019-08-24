@@ -1,4 +1,6 @@
 [![Maven Central](https://img.shields.io/maven-central/v/io.github.stasgora/observetree.svg)](https://search.maven.org/search?q=g:%22io.github.stasgora%22%20AND%20a:%22observetree%22)
+[![Build Status](https://travis-ci.org/stasgora/observetree.svg?branch=master)](https://travis-ci.org/stasgora/observetree)
+[![Coverage Status](https://coveralls.io/repos/github/stasgora/observetree/badge.svg?branch=master)](https://coveralls.io/github/stasgora/observetree?branch=master)
 
 # Observetree library
 Observetree is a library that extends the classic _Observable pattern_ by integrating it in a tree structure. _Change events_ are propagated through the Observable tree. _Listeners_ can be assigned a priority to control the order at which they are called.
