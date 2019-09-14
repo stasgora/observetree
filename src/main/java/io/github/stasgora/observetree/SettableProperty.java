@@ -11,7 +11,7 @@ import java.io.Serializable;
 import java.util.function.UnaryOperator;
 
 /**
- * A wrapper class that encapsulates another object - {@link #modelValue} - and notifies it's listeners when the {@link #modelValue} is set.
+ * A wrapper class that encapsulates another object - {@link #modelValue} - and notifies it's listeners when it is set.
  * {@code equals()} method is used to determine if {@link #defaultValue} was changed.
  * It supports {@link #defaultValue} for the {@link #modelValue} that can be set and reset to.
  *

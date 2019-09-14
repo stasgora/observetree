@@ -10,6 +10,7 @@ package io.github.stasgora.observetree;
 import io.github.stasgora.observetree.enums.ListenerNotification;
 import io.github.stasgora.observetree.enums.ListenerPriority;
 import io.github.stasgora.observetree.listener.ChangeListener;
+import io.github.stasgora.observetree.observable.ObservableTestBase;
 import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.InOrder;
