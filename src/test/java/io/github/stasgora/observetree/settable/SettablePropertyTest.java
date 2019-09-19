@@ -5,8 +5,7 @@ import io.github.stasgora.observetree.TestBase;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class SettablePropertyTest extends TestBase {
 	private SettableProperty<Integer> settableInt;
@@ -18,13 +17,30 @@ public class SettablePropertyTest extends TestBase {
 	}
 
 	@Test
-	public void whenSettableObjectIsSet_theListenersGetsCalled() {
+	public void whenSettableObjectIsSet_theListenersGetCalled() {
 		settableInt.addListener(listener);
 
 		settableInt.set(VALUE_TO_SET);
 		settableInt.notifyListeners();
 
 		verifyListenerCalled(listener, 1);
+	}
+
+	@Test
+	public void whenSettableObjectIsSetButEqual_noListenersGetCalled() {
+		settableInt.addListener(listener);
+
+		settableInt.set(0);
+		settableInt.notifyListeners();
+
+		verifyListenerCalled(listener, 0);
+	}
+
+	@Test
+	public void testValuePresentMethod() {
+		assertTrue(settableInt.present());
+		settableInt.set(null);
+		assertFalse(settableInt.present());
 	}
 
 	@Test
@@ -38,7 +54,7 @@ public class SettablePropertyTest extends TestBase {
 	}
 
 	@Test
-	public void whenSettableObjectIsSetWithNotify_theListenersGetsCalled() {
+	public void whenSettableObjectIsSetWithNotify_theListenersGetCalled() {
 		settableInt.addListener(listener);
 
 		settableInt.setAndNotify(VALUE_TO_SET);

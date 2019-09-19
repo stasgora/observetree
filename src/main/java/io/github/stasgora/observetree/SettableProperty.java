@@ -122,7 +122,7 @@ public class SettableProperty<T> extends Observable implements Serializable {
 	 * Sets the {@link #defaultValue} of this {@code SettableProperty} to be equal to the current {@link #modelValue}
 	 */
 	public void saveAsDefaultValue() {
-		this.defaultValue = modelValue;
+		setDefaultValue(modelValue);
 	}
 
 }

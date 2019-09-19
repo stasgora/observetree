@@ -75,6 +75,16 @@ public class SettableObservableTest extends TestBase {
 	}
 
 	@Test
+	public void whenSettableObjectIsSetButEqual_noListenersGetCalled() {
+		settableObservable.addListener(listener);
+
+		settableObservable.set(modelValue);
+		settableObservable.notifyListeners();
+
+		verifyListenerCalled(listener, 0);
+	}
+
+	@Test
 	public void whenValueIsSet_staticListenersGetCopied() {
 		settableObservable.addStaticListener(listener);
 
