@@ -5,12 +5,12 @@
  * See LICENSE file or go to http://www.opensource.org/licenses/mit-license.php for full license details.
  */
 
-package io.github.stasgora.observetree;
+package io.github.stasgora.observetree.observable;
 
+import io.github.stasgora.observetree.model.TestObservable;
 import io.github.stasgora.observetree.enums.ListenerNotification;
 import io.github.stasgora.observetree.enums.ListenerPriority;
 import io.github.stasgora.observetree.listener.ChangeListener;
-import io.github.stasgora.observetree.observable.ObservableTestBase;
 import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.InOrder;

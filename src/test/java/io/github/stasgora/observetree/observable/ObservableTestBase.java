@@ -7,29 +7,16 @@
 
 package io.github.stasgora.observetree.observable;
 
-import io.github.stasgora.observetree.Observable;
 import io.github.stasgora.observetree.TestBase;
-import io.github.stasgora.observetree.listener.ChangeListener;
-import org.junit.Assert;
+import io.github.stasgora.observetree.model.TestObservable;
 import org.junit.Before;
-import org.mockito.AdditionalAnswers;
-import org.mockito.Mockito;
 
 public abstract class ObservableTestBase extends TestBase {
 	protected TestObservable observable;
 
 	@Before
 	public void prepareObjects() {
+		super.prepareObjects();
 		observable = new TestObservable();
-		listener = mockListener(() -> {});
-	}
-
-	public static class TestObservable extends Observable {
-		private int value;
-
-		public void setValue(int value) {
-			this.value = value;
-			onValueChanged();
-		}
 	}
 }

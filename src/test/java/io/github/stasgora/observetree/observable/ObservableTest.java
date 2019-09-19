@@ -7,6 +7,7 @@
 
 package io.github.stasgora.observetree.observable;
 
+import io.github.stasgora.observetree.model.TestObservable;
 import io.github.stasgora.observetree.enums.ListenerNotification;
 import io.github.stasgora.observetree.enums.ListenerPriority;
 import io.github.stasgora.observetree.listener.ChangeListener;

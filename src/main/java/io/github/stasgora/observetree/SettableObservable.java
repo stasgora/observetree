@@ -48,7 +48,7 @@ public class SettableObservable<T extends Observable> extends SettableProperty<T
 	 * @return {@code true} if the listener was successfully added. {@code false} if it was already present
 	 */
 	public boolean addStaticListener(ChangeListener listener) {
-		return add(staticListeners, listener);
+		return addStaticListener(listener, ListenerPriority.NORMAL);
 	}
 
 	/**
@@ -58,7 +58,7 @@ public class SettableObservable<T extends Observable> extends SettableProperty<T
 	 * @return {@code true} if the listener was successfully added. {@code false} if it was already present
 	 */
 	public boolean addStaticListener(ChangeListener listener, ListenerPriority priority) {
-		return add(staticListeners, listener, priority);
+		return addStaticListener(listener, priority.value);
 	}
 
 	/**
@@ -68,7 +68,10 @@ public class SettableObservable<T extends Observable> extends SettableProperty<T
 	 * @return {@code true} if the listener was successfully added. {@code false} if it was already present
 	 */
 	public boolean addStaticListener(ChangeListener listener, int priority) {
-		return add(staticListeners, listener, priority);
+		boolean added = add(staticListeners, listener, priority);
+		if(added && modelValue != null)
+			modelValue.addListener(listener, priority);
+		return added;
 	}
 
 	/**
@@ -77,7 +80,10 @@ public class SettableObservable<T extends Observable> extends SettableProperty<T
 	 * @return {@code true} if the listener was successfully removed. {@code false} if it was not found
 	 */
 	public boolean removeStaticListener(ChangeListener listener) {
-		return remove(staticListeners, listener);
+		boolean removed = remove(staticListeners, listener);
+		if(removed && modelValue != null)
+			modelValue.removeListener(listener);
+		return removed;
 	}
 
 	/**

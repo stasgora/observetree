@@ -13,8 +13,8 @@ public class SettablePropertyTest extends TestBase {
 
 	@Before
 	public void prepareObjects() {
+		super.prepareObjects();
 		settableInt = new SettableProperty<>(0);
-		listener = mockListener(() -> {});
 	}
 
 	@Test
