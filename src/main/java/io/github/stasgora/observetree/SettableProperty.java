@@ -8,6 +8,7 @@
 package io.github.stasgora.observetree;
 
 import java.io.Serializable;
+import java.util.Objects;
 import java.util.function.UnaryOperator;
 
 /**
@@ -68,7 +69,7 @@ public class SettableProperty<T> extends Observable implements Serializable {
 	 * @param modelValue value to be set
 	 */
 	public void set(T modelValue) {
-		if(this.modelValue.equals(modelValue)) {
+		if(Objects.equals(this.modelValue, modelValue)) {
 			return;
 		}
 		this.modelValue = modelValue;

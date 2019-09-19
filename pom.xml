@@ -6,7 +6,7 @@
 
 	<groupId>io.github.stasgora</groupId>
 	<artifactId>observetree</artifactId>
-	<version>1.0.2</version>
+	<version>1.0.2.1</version>
 
 	<name>Observetree</name>
 	<description>Library providing observables arranged in tree structure with propagating events</description>
