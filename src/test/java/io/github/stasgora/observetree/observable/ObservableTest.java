@@ -16,6 +16,9 @@ import org.junit.Test;
 import org.mockito.InOrder;
 import org.mockito.Mockito;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 public class ObservableTest extends ObservableTestBase {
 
 	@Test
@@ -69,7 +72,7 @@ public class ObservableTest extends ObservableTestBase {
 	}
 
 	@Test
-	public void copyingListeners_works() {
+	public void testCopyingListeners() {
 		TestObservable otherObservable = new TestObservable();
 		observable.addListener(listener);
 
@@ -78,6 +81,12 @@ public class ObservableTest extends ObservableTestBase {
 		otherObservable.notifyListeners();
 
 		verifyListenerCalled(listener, 1);
+	}
+
+	@Test
+	public void testAddingTheSameListenerTwice() {
+		assertTrue(observable.addListener(listener));
+		assertFalse(observable.addListener(listener));
 	}
 
 }
