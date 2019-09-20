@@ -12,6 +12,7 @@ import io.github.stasgora.observetree.enums.ListenerPriority;
 import io.github.stasgora.observetree.listener.ChangeListener;
 import io.github.stasgora.observetree.listener.ListenerEntry;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -21,34 +22,42 @@ import java.util.TreeSet;
  * Base {@code Observable} class that holds a list of listeners and notifies them when it changes.
  * Use one of the {@link #addListener(ChangeListener)} methods to register a listener.
  *
- * <p>To signal that the {@code Observable} has changed call {@link #onValueChanged()} from the extending class.
- * When {@link #notificationMethod} is {@link ListenerNotification#MANUAL}, the changing entity should additionally call {@link #notifyListeners()} when it wants the callbacks to fire.
+ * <p>
+ *     To signal that the {@code Observable} has changed call {@link #onValueChanged()} from the extending class.
+ *     When {@link #notificationMethod} is {@link ListenerNotification#MANUAL}, the changing entity should additionally call {@link #notifyListeners()} when it wants the callbacks to fire.
+ * </p>
  *
- * <p>Use {@link #notificationMethod} flag to configure whether {@link #notifyListeners()} should be called:
- * <ul>
- *     <li>automatically, immediately after a {@link #onValueChanged()} was called</li>
- *     <li>manually, through {@link #notifyListeners()} (useful for complex multistage changes)</li>
- * </ul>
+ * <p>
+ *     Use {@link #notificationMethod} flag to configure whether {@link #notifyListeners()} should be called:
+ *     <ul>
+ *         <li>automatically, immediately after a {@link #onValueChanged()} was called</li>
+ *         <li>manually, through {@link #notifyListeners()} (useful for complex multistage changes)</li>
+ *     </ul>
+ * </p>
  *
- * <p>{@code Observables} can create a tree structure.
- * For creating the relations use {@link #addSubObservable(Observable)}<br>
- * <b>Cycles are not supported.</b>
- * <ul>
- *     <li>Calling {@link #onValueChanged()} marks the {@code Observable} and all its ancestors as changed</li>
- *     <li>
- *          Calling {@link #notifyListeners()}:
- *          <ul>
- *              <li>resets the {@code Observable} changed flag</li>
- *              <li>invokes the listeners of all descendant and ancestor {@code Observables} that are currently marked as changed</li>
- *          </ul>
- *          The listeners are called in order of their priority (globally) - first the listeners with the highest priority from all the {@code Observables} will be called, etc.
- *          The order at which the listeners with the same priority are called is undefined.
- *     </li>
- * </ul>
+ * <p>
+ *     {@code Observables} can create a tree structure.
+ *     For creating the relations use {@link #addSubObservable(Observable)}<br>
+ *     <b>Cycles are not supported.</b>
+ *     <ul>
+ *         <li>Calling {@link #onValueChanged()} marks the {@code Observable} and all its ancestors as changed</li>
+ *         <li>
+ *              Calling {@link #notifyListeners()}:
+ *              <ul>
+ *                  <li>resets the {@code Observable} changed flag</li>
+ *                  <li>invokes the listeners of all descendant and ancestor {@code Observables} that are currently marked as changed</li>
+ *              </ul>
+ *              The listeners are called in order of their priority (globally) - first the listeners with the highest priority from all the {@code Observables} will be called, etc.
+ *              The order at which the listeners with the same priority are called is undefined.
+ *         </li>
+ *     </ul>
+ * </p>
  *
- * <p><i>Example use:</i><br>
- * With several child {@code Observables} grouped under a single parent, multiple independent modifications can be made to the children.
- * Then the {@link #notifyListeners()} can be called only once on the parent object to notify all the listeners including the children's.
+ * <p>
+ *     <i>Example use:</i><br>
+ *     With several child {@code Observables} grouped under a single parent, multiple independent modifications can be made to the children.
+ *     Then the {@link #notifyListeners()} can be called only once on the parent object to notify all the listeners including the children's.
+ * </p>
  *
  * @author Stanisław Góra
  * @see SettableProperty
@@ -62,7 +71,7 @@ public abstract class Observable {
 	/**
 	 * Listeners notification method
 	 */
-	public transient ListenerNotification notificationMethod = ListenerNotification.MANUAL;
+	protected transient ListenerNotification notificationMethod = ListenerNotification.MANUAL;
 	private transient boolean valueChanged = false;
 
 	private transient Set<ListenerEntry> listeners = new TreeSet<>();
@@ -310,6 +319,22 @@ public abstract class Observable {
 	 */
 	public Set<Observable> getChildren() {
 		return children;
+	}
+
+	/**
+	 * Returns notification method of this {@code Observable}
+	 * @return a way in which this {@code Observable} listeners are notified
+	 */
+	public ListenerNotification getNotificationMethod() {
+		return notificationMethod;
+	}
+
+	/**
+	 * Sets notification method of this {@code Observable}
+	 * @param notificationMethod a way in which this {@code Observable} listeners are to be notified
+	 */
+	public void setNotificationMethod(ListenerNotification notificationMethod) {
+		this.notificationMethod = notificationMethod;
 	}
 
 	private enum TreeTraverseDirection {

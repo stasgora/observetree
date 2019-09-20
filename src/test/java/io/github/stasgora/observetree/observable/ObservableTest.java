@@ -32,7 +32,7 @@ public class ObservableTest extends ObservableTestBase {
 
 	@Test
 	public void whenAutomaticObservableIsChanged_listenerIsCalledAndValueSet() {
-		observable.notificationMethod = ListenerNotification.AUTOMATIC;
+		observable.setNotificationMethod(ListenerNotification.AUTOMATIC);
 		observable.addListener(listener);
 		observable.setValue(VALUE_TO_SET);
 		verifyListenerCalled(listener, 1);

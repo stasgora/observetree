@@ -20,11 +20,11 @@ public class ListenerEntry implements Comparable<ListenerEntry> {
 	/**
 	 * Listener callback method reference
 	 */
-	public ChangeListener listener;
+	public final ChangeListener listener;
 	/**
 	 * Listener priority
 	 */
-	public int priority;
+	public final int priority;
 
 	/**
 	 * Constructs new listener entry object
@@ -66,6 +66,7 @@ public class ListenerEntry implements Comparable<ListenerEntry> {
 	 */
 	@Override
 	public int compareTo(ListenerEntry o) {
-		return this.equals(o) ? 0 : (priority >= o.priority ? -1 : 1);
+		int order = priority >= o.priority ? -1 : 1;
+		return this.equals(o) ? 0 : order;
 	}
 }

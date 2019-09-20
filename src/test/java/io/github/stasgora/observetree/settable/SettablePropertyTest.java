@@ -49,7 +49,7 @@ public class SettablePropertyTest extends TestBase {
 
 		settableInt.modify(val -> VALUE_TO_SET);
 
-		assertEquals((int) settableInt.get(), VALUE_TO_SET);
+		assertEquals(VALUE_TO_SET, (int) settableInt.get());
 		assertTrue(settableInt.isValueChanged());
 	}
 
@@ -68,8 +68,8 @@ public class SettablePropertyTest extends TestBase {
 		settableInt.saveAsDefaultValue();
 		settableInt.set(0);
 
-		assertEquals((int) settableInt.getDefaultValue(), VALUE_TO_SET);
+		assertEquals(VALUE_TO_SET, (int) settableInt.getDefaultValue());
 		settableInt.resetToDefaultValue();
-		assertEquals((int) settableInt.get(), VALUE_TO_SET);
+		assertEquals(VALUE_TO_SET, (int) settableInt.get());
 	}
 }

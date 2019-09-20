@@ -33,16 +33,16 @@ public class SettableObservableTest extends TestBase {
 
 	@Test
 	public void testParentAssignment() {
-		assertEquals(settableObservable.getParents(), Collections.singleton(settableParent));
-		assertEquals(modelValue.getParents(), Collections.singleton(settableParent));
+		assertEquals(Collections.singleton(settableParent), settableObservable.getParents());
+		assertEquals(Collections.singleton(settableParent), modelValue.getParents());
 	}
 
 	@Test
 	public void whenParentIsRemoved_itIsUnregistered() {
 		settableParent.removeSubObservable(settableObservable);
 
-		assertEquals(settableObservable.getParents(), Collections.emptySet());
-		assertEquals(modelValue.getParents(), Collections.emptySet());
+		assertEquals(Collections.emptySet(), settableObservable.getParents());
+		assertEquals(Collections.emptySet(), modelValue.getParents());
 	}
 
 	@Test
@@ -50,7 +50,7 @@ public class SettableObservableTest extends TestBase {
 		modelValue = new TestObservable();
 		settableObservable.set(modelValue);
 
-		assertEquals(modelValue.getParents(), Collections.singleton(settableParent));
+		assertEquals(Collections.singleton(settableParent), modelValue.getParents());
 	}
 
 	@Test

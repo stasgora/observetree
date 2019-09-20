@@ -42,7 +42,7 @@ public class ObservableTreeTest extends ObservableTestBase {
 	@Test
 	public void whenAutomaticObservableHasParent_itsListenerIsCalled() {
 		parent.addListener(listener);
-		observable.notificationMethod = ListenerNotification.AUTOMATIC;
+		observable.setNotificationMethod(ListenerNotification.AUTOMATIC);
 
 		observable.setValue(VALUE_TO_SET);
 		verifyListenerCalled(listener, 1);
@@ -50,16 +50,16 @@ public class ObservableTreeTest extends ObservableTestBase {
 
 	@Test
 	public void whenAddingParent_itIsRegistered() {
-		Assert.assertEquals(observable.getParents(), Collections.singleton(parent));
-		Assert.assertEquals(parent.getChildren(), Collections.singleton(observable));
+		Assert.assertEquals(Collections.singleton(parent), observable.getParents());
+		Assert.assertEquals(Collections.singleton(observable), parent.getChildren());
 	}
 
 	@Test
 	public void whenParentObservableIsRemoved_itIsUnregistered() {
 		parent.removeSubObservable(observable);
 
-		Assert.assertEquals(observable.getParents(), Collections.emptySet());
-		Assert.assertEquals(parent.getChildren(), Collections.emptySet());
+		Assert.assertEquals(Collections.emptySet(), observable.getParents());
+		Assert.assertEquals(Collections.emptySet(), parent.getChildren());
 	}
 
 	@Test

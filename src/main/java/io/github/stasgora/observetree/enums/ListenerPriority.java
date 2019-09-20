@@ -41,7 +41,7 @@ public enum ListenerPriority {
 	/**
 	 * Numeric priority of the enum value
 	 */
-	public int value;
+	public final int value;
 
 	ListenerPriority(int value) {
 		this.value = value;
