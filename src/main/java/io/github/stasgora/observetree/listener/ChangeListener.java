@@ -12,7 +12,7 @@ import io.github.stasgora.observetree.enums.ListenerPriority;
 
 /**
  * Represents a listener that subscribes to the changes of {@link Observable}
- * <p>This is a <i>functional interface</i> whose functional method is {@link #call()}</p>
+ * <p>This is a <i>functional interface</i> whose functional method is {@link #call()}
  *
  * @author Stanisław Góra
  * @see ListenerPriority

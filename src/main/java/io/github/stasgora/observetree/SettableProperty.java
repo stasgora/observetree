@@ -15,10 +15,10 @@ import java.util.function.UnaryOperator;
  * A wrapper class that encapsulates another object - {@link #modelValue} - and notifies it's listeners when it is set.
  * {@code equals()} method is used to determine if {@link #defaultValue} was changed.
  * It supports {@link #defaultValue} for the {@link #modelValue} that can be set and reset to.
+ *
  * <p>
- *     Note that the type of this {@link SettableProperty} needs to be serializable for this object to be serialized.
- *     It is only not required to allow for more flexible usage.
- * </p>
+ * Note that the type of this {@link SettableProperty} needs to be serializable for this object to be serialized.
+ * It is only not required to allow for more flexible usage.
  *
  * @param <T> the type of the actual observable data type
  *
