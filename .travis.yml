@@ -3,6 +3,12 @@ jdk:
   - openjdk12
 cache:
   directories:
-    - $HOME/.m2
+    - '$HOME/.m2/repository'
+    - '$HOME/.sonar/cache'
 script:
-  - mvn clean test jacoco:report coveralls:report
+  - mvn clean test jacoco:report coveralls:report sonar:sonar
+addons:
+  sonarcloud:
+    organization: "stasgora"
+    token:
+      secure: mf6Ttw83reWIAplD8bLb56flqUBFKE3H/g+2LRX7zkaJOVnQsB+GO+iddp0nL/1+uYWUiC3qJUcA3/O3+fckxwATkB39syvZzlFFcyDP/h7wTGIe3Wr4n6MPwtBvWbwxgjwA8+vhRJlOsFZCU/+t+RN/QAUkxkqQT7fAI2DA4bPXwCx2H4tqtmtjoPrLCtLHfSC2NzI4I3ogSMMBLgcXUPQWN7fRcQXjNX/NjI4Cdo922y6wgUxlDnXiCwFL6IaEsIiulNtkiA0425N8cblroyV9jNMlhNR1crROC9T3VLHen6QpZggU7L+SW1en7EUfjN6dbTAn6RFt8E6/2AIpRtFbMuGGmnkF8TC0uI6t5dQmY7GeH916hjE40sFshdEFXAgiAWbEY8BrIgSKOUCodMCo4LYqFGzu7ns4Vc4JHBmRXMyQ04fjUPQR4Ldy4Eiw3AknTQUc06i87EGdNwfkPYIdl1kInR6NrgKFaeyn5wUZD+ZZRXhsaKiDp/HYolAhbNqQqk8XqeD7XmE8/NexpuFkYISo/ZIN3DjjYnkwZXV/oLBnGi95/9avDYPjikalhaoMasugVdxYc21jyF+O9Yyqs8RjQBrK8goJVvFa8J31FM4jjlBNOv7LzKGgu/P0I3lACS5v/FNz/8qm/9I5Mc7FJPrGMTbgesE7I7z4OVQ=
