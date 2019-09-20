@@ -1,9 +1,10 @@
 [![Maven Central](https://img.shields.io/maven-central/v/io.github.stasgora/observetree.svg)](https://search.maven.org/search?q=g:%22io.github.stasgora%22%20AND%20a:%22observetree%22)
 [![Build Status](https://travis-ci.org/stasgora/observetree.svg?branch=master)](https://travis-ci.org/stasgora/observetree)
-[![Code Coverage](https://img.shields.io/coveralls/github/stasgora/observetree)](https://coveralls.io/github/stasgora/observetree?branch=master)
-[![JavaDocs](https://javadoc.io/badge/io.github.stasgora/observetree.svg?kill_cache=1)](https://javadoc.io/doc/io.github.stasgora/observetree)
-[![License](https://img.shields.io/github/license/stasgora/observetree?color=blueviolet)](https://github.com/stasgora/observetree/blob/master/LICENSE)
 [![Last Release Date](https://img.shields.io/github/release-date/stasgora/observetree?color=orange)](https://github.com/stasgora/observetree/releases)
+[![Sonar Tests](https://img.shields.io/sonar/tests/io.github.stasgora:observetree?compact_message&server=https%3A%2F%2Fsonarcloud.io)](https://sonarcloud.io/dashboard?id=io.github.stasgora%3Aobservetree)
+[![Code Coverage](https://img.shields.io/coveralls/github/stasgora/observetree)](https://coveralls.io/github/stasgora/observetree?branch=master)
+[![License](https://img.shields.io/github/license/stasgora/observetree?color=blueviolet)](https://github.com/stasgora/observetree/blob/master/LICENSE)
+[![Sonar Quality Gate](https://img.shields.io/sonar/quality_gate/io.github.stasgora:observetree?server=https%3A%2F%2Fsonarcloud.io)](https://sonarcloud.io/dashboard?id=io.github.stasgora%3Aobservetree)
 
 # Observetree library
 Observetree is a library that extends the classic _Observable pattern_ by integrating it in a tree structure. _Change events_ are propagated through the Observable tree. _Listeners_ can be assigned a priority to control the order at which they are called.
