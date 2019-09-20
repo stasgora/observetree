@@ -1,14 +1,16 @@
 [![Maven Central](https://img.shields.io/maven-central/v/io.github.stasgora/observetree.svg)](https://search.maven.org/search?q=g:%22io.github.stasgora%22%20AND%20a:%22observetree%22)
 [![Build Status](https://travis-ci.org/stasgora/observetree.svg?branch=master)](https://travis-ci.org/stasgora/observetree)
-[![Coverage Status](https://coveralls.io/repos/github/stasgora/observetree/badge.svg?branch=master)](https://coveralls.io/github/stasgora/observetree?branch=master)
-[![Javadocs](https://javadoc.io/badge/io.github.stasgora/observetree.svg)](https://javadoc.io/doc/io.github.stasgora/observetree)
+[![Code Coverage](https://img.shields.io/coveralls/github/stasgora/observetree)](https://coveralls.io/github/stasgora/observetree?branch=master)
+[![JavaDocs](https://javadoc.io/badge/io.github.stasgora/observetree.svg?kill_cache=1)](https://javadoc.io/doc/io.github.stasgora/observetree)
+[![License](https://img.shields.io/github/license/stasgora/observetree?color=blueviolet)](https://github.com/stasgora/observetree/blob/master/LICENSE)
+[![Last Release Date](https://img.shields.io/github/release-date/stasgora/observetree?color=orange)](https://github.com/stasgora/observetree/releases)
 
 # Observetree library
 Observetree is a library that extends the classic _Observable pattern_ by integrating it in a tree structure. _Change events_ are propagated through the Observable tree. _Listeners_ can be assigned a priority to control the order at which they are called.
 
 ## Getting started
 
-### Documentation [![Javadocs](https://javadoc.io/badge/io.github.stasgora/observetree.svg)](https://javadoc.io/doc/io.github.stasgora/observetree)
+### Documentation [![Javadocs](https://javadoc.io/badge/io.github.stasgora/observetree.svg?kill_cache=1)](https://javadoc.io/doc/io.github.stasgora/observetree)
 Javadoc also available at [stasgora.github.io/observetree/](https://stasgora.github.io/observetree/)
 
 For detailed technical description see [Observable class](https://stasgora.github.io/observetree/com/github/stasgora/observetree/Observable.html)
