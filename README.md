@@ -12,9 +12,9 @@ Observetree is a library that extends the classic _Observable pattern_ by integr
 ## Getting started
 
 ### Documentation [![Javadocs](https://javadoc.io/badge/io.github.stasgora/observetree.svg)](https://javadoc.io/doc/io.github.stasgora/observetree)
-Javadoc also available at [stasgora.github.io/observetree/](https://stasgora.github.io/observetree/)
+Javadoc also available at [sgora.dev/observetree/](https://sgora.dev/observetree/)
 
-For detailed technical description see [Observable class](https://stasgora.github.io/observetree/com/github/stasgora/observetree/Observable.html)
+For detailed technical description see [Observable class](https://sgora.dev/observetree/com/github/stasgora/observetree/Observable.html)
 
 ### Installation
 #### Maven [![Maven Central](https://img.shields.io/maven-central/v/io.github.stasgora/observetree.svg)](https://search.maven.org/search?q=g:%22io.github.stasgora%22%20AND%20a:%22observetree%22)
