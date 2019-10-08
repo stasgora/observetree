@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"m":"stasgora.observetree","l":"io.github.stasgora.observetree"},{"m":"stasgora.observetree","l":"io.github.stasgora.observetree.enums"},{"m":"stasgora.observetree","l":"io.github.stasgora.observetree.listener"}]
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"m":"stasgora.observetree","l":"dev.sgora.observetree"},{"m":"stasgora.observetree","l":"dev.sgora.observetree.enums"},{"m":"stasgora.observetree","l":"dev.sgora.observetree.listener"}]

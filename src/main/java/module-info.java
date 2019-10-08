@@ -1,5 +1,5 @@
 module stasgora.observetree {
-	exports io.github.stasgora.observetree;
-	exports io.github.stasgora.observetree.listener;
-	exports io.github.stasgora.observetree.enums;
+	exports dev.sgora.observetree;
+	exports dev.sgora.observetree.listener;
+	exports dev.sgora.observetree.enums;
 }
