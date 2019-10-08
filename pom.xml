@@ -4,13 +4,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>io.github.stasgora</groupId>
+	<groupId>dev.sgora</groupId>
 	<artifactId>observetree</artifactId>
 	<version>1.1-SNAPSHOT</version>
 
 	<name>Observetree</name>
 	<description>Library providing observables arranged in tree structure with propagating events</description>
-	<url>https://stasgora.github.io/observetree/</url>
+	<url>https://github.com/stasgora/observetree</url>
 	<licenses>
 		<license>
 			<name>MIT License</name>
