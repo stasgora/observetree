@@ -1,4 +1,4 @@
-[![Maven Central](https://img.shields.io/maven-central/v/io.github.stasgora/observetree.svg)](https://search.maven.org/search?q=g:%22io.github.stasgora%22%20AND%20a:%22observetree%22)
+[![Maven Central](https://img.shields.io/maven-central/v/dev.sgora/observetree.svg)](https://search.maven.org/search?q=g:%22dev.sgora%22%20AND%20a:%22observetree%22)
 [![Build Status](https://travis-ci.org/stasgora/observetree.svg?branch=master)](https://travis-ci.org/stasgora/observetree)
 [![Last Release Date](https://img.shields.io/github/release-date/stasgora/observetree?color=orange)](https://github.com/stasgora/observetree/releases)
 [![Sonar Tests](https://img.shields.io/sonar/tests/dev.sgora:observetree?compact_message&server=https%3A%2F%2Fsonarcloud.io)](https://sonarcloud.io/dashboard?id=dev.sgora%3Aobservetree)
@@ -11,20 +11,21 @@ Observetree is a library that extends the classic _Observable pattern_ by integr
 
 ## Getting started
 
-### Documentation [![Javadocs](https://javadoc.io/badge/io.github.stasgora/observetree.svg)](https://javadoc.io/doc/io.github.stasgora/observetree)
+### Documentation [![Javadocs](https://javadoc.io/badge/dev.sgora/observetree.svg)](https://javadoc.io/doc/dev.sgora/observetree)
 Javadoc also available at [sgora.dev/observetree/](https://sgora.dev/observetree/)
 
 For detailed technical description see [Observable class](https://sgora.dev/observetree/com/github/stasgora/observetree/Observable.html)
 
 ### Installation
-#### Maven [![Maven Central](https://img.shields.io/maven-central/v/io.github.stasgora/observetree.svg)](https://search.maven.org/search?q=g:%22io.github.stasgora%22%20AND%20a:%22observetree%22)
+#### Maven [![Maven Central](https://img.shields.io/maven-central/v/dev.sgora/observetree.svg)](https://search.maven.org/search?q=g:%22dev.sgora%22%20AND%20a:%22observetree%22)
 ```xml
 <dependency>
-  <groupId>io.github.stasgora</groupId>
+  <groupId>dev.sgora</groupId>
   <artifactId>observetree</artifactId>
   <version>${observetree-version}</version>
 </dependency>
 ```
+<sub><sup>(Earlier versions released under ```io.github.stasgora``` groupId)</sup></sub><br><br>
 SNAPSHOT versions are **not** synchronized to Central. If you want to use a snapshot version you need to add the https://oss.sonatype.org/content/repositories/snapshots/ repository to your pom.xml.
 #### Manual
 See the [release page](https://github.com/stasgora/observetree/releases) for _jar_ downloads. Follow your IDE instructions for detailed steps on adding external library dependencies to your project.
