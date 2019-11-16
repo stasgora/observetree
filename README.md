@@ -14,7 +14,7 @@ Observetree is a library that extends the classic _Observable pattern_ by integr
 ### Documentation [![Javadocs](https://javadoc.io/badge/dev.sgora/observetree.svg)](https://javadoc.io/doc/dev.sgora/observetree)
 Javadoc also available at [sgora.dev/observetree/](https://sgora.dev/observetree/)
 
-For detailed technical description see [Observable class](https://sgora.dev/observetree/com/github/stasgora/observetree/Observable.html)
+For detailed technical description see [Observable class](https://javadoc.io/doc/dev.sgora/observetree/latest/stasgora.observetree/dev/sgora/observetree/Observable.html)
 
 ### Installation
 #### Maven [![Maven Central](https://img.shields.io/maven-central/v/dev.sgora/observetree.svg)](https://search.maven.org/search?q=g:%22dev.sgora%22%20AND%20a:%22observetree%22)
@@ -78,7 +78,7 @@ model.point.addListener(...);
 ```java
 model.notifyListeners();
 ```
-(For detailed behaviour description see the [documentation](https://stasgora.github.io/observetree/com/github/stasgora/observetree/Observable.html))
+(For detailed behaviour description see the [documentation](https://javadoc.io/doc/dev.sgora/observetree/latest/stasgora.observetree/dev/sgora/observetree/Observable.html))
 #### Specifying listener priority
 ```java
 p.addListener(() -> {...}, ListenerPriority.HIGH);
